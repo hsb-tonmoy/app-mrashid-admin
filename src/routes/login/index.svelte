@@ -1,6 +1,19 @@
 <script>
-	const github = '../assets/img/github.svg';
-	const google = '../assets/img/google.svg';
+	import { session } from '$app/stores';
+	import { goto } from '$app/navigation';
+
+	let email, password;
+
+	async function handleLogin() {
+		const response = await post(`auth/login`, { email, password });
+
+		let errors = response.errors;
+
+		if (response.user) {
+			$session.user = response.user;
+			goto('/dashboard');
+		}
+	}
 </script>
 
 <div class="container mx-auto px-4 h-full">
@@ -15,7 +28,7 @@
 					</div>
 				</div>
 				<div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-					<form>
+					<form on:submit|preventDefault={handleLogin}>
 						<div class="relative w-full mb-3">
 							<label
 								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -28,6 +41,7 @@
 								type="email"
 								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 								placeholder="Email"
+								bind:value={email}
 							/>
 						</div>
 
@@ -43,6 +57,7 @@
 								type="password"
 								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 								placeholder="Password"
+								bind:value={password}
 							/>
 						</div>
 						<div>
@@ -59,24 +74,11 @@
 						<div class="text-center mt-6">
 							<button
 								class="bg-blueGray-800 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-								type="button"
 							>
 								Sign In
 							</button>
 						</div>
 					</form>
-				</div>
-			</div>
-			<div class="flex flex-wrap mt-6 relative">
-				<div class="w-1/2">
-					<a href="#pablo" on:click={(e) => e.preventDefault()} class="text-blueGray-200">
-						<small>Forgot password?</small>
-					</a>
-				</div>
-				<div class="w-1/2 text-right">
-					<a href="/auth/register" class="text-blueGray-200">
-						<small>Create new account</small>
-					</a>
 				</div>
 			</div>
 		</div>
