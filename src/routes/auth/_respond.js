@@ -2,7 +2,7 @@ import jwt_decode from 'jwt-decode';
 
 export function respond(body) {
 	if (body.errors) {
-		return { status: 401, body };
+		return { status: 400, body };
 	}
 
 	const access_token = JSON.stringify(body.access_token);
@@ -14,7 +14,16 @@ export function respond(body) {
 	const user = JSON.stringify(body.user);
 	const value = Buffer.from(user).toString('base64');
 
+	if (body.user.account_type === 1 || body.user.account_type === 2) {
+		return {
+			body: {
+				status: 401
+			}
+		};
+	}
+
 	return {
+		status: 200,
 		headers: {
 			'Content-Type': 'application/json',
 			'set-cookie': [

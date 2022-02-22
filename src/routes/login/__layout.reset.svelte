@@ -1,5 +1,7 @@
 <script>
+	import { SvelteToast } from '@zerodevx/svelte-toast';
 	const registerBg2 = '../assets/img/register_bg_2.png';
+	const options = {};
 </script>
 
 <div>
@@ -10,6 +12,7 @@
 				style="background-image: url({registerBg2});"
 			/>
 			<slot />
+			<SvelteToast {options} />
 		</section>
 	</main>
 </div>

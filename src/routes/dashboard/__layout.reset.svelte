@@ -22,6 +22,8 @@
 </script>
 
 <script>
+	import { SvelteToast } from '@zerodevx/svelte-toast';
+
 	import AdminNavbar from '$lib/Dashboard/Navbars/AdminNavbar.svelte';
 	import Sidebar from '$lib/Dashboard/Sidebar/Sidebar.svelte';
 	import HeaderStats from '$lib/Dashboard/Headers/HeaderStats.svelte';
@@ -39,3 +41,5 @@
 		</div>
 	</div>
 </div>
+
+<SvelteToast />

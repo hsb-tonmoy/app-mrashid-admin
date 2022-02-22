@@ -12,6 +12,7 @@
 </script>
 
 <script>
+	import { toast } from '@zerodevx/svelte-toast';
 	import { session } from '$app/stores';
 	import { goto } from '$app/navigation';
 	import { post } from '$lib/utils.js';
@@ -22,10 +23,23 @@
 	async function handleLogin() {
 		const response = await post(`auth/login`, { email, password });
 
-		console.log(response);
+		if (response.status === 401) {
+			toast.push('Unauthorized!', {
+				initial: 0,
+				next: 0,
+				duration: 10000,
+
+				theme: {
+					'--toastBackground': '#F56565',
+					'--toastBarBackground': '#C53030'
+				}
+			});
+		}
 
 		if (response.user) {
 			$session.user = response.user;
+
+			goto('/dashboard');
 		}
 	}
 </script>
@@ -98,3 +112,12 @@
 		</div>
 	</div>
 </div>
+
+<style>
+	:root {
+		--toastContainerTop: 8rem;
+		--toastContainerRight: auto;
+		--toastContainerBottom: auto;
+		--toastContainerLeft: calc(50vw - 8rem);
+	}
+</style>
