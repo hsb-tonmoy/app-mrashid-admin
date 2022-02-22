@@ -7,6 +7,15 @@
 	function toggleCollapseShow(classes) {
 		collapseShow = classes;
 	}
+
+	const dashboard = [
+		{ title: 'Dashboard', link: '/dashboard', icon: 'fa-tv' },
+		{ title: 'Accounts', link: '/accounts', icon: 'fa-user' }
+	];
+
+	const students = [{ title: 'Student Data', link: '/dashboard/student-data', icon: 'fa-table' }];
+
+	const knowledgebase = [{ title: 'Videos', link: '/videos', icon: 'fa-video' }];
 </script>
 
 <nav
@@ -26,9 +35,9 @@
 		<!-- Brand -->
 		<a
 			class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-			href="/"
+			href="/dashboard"
 		>
-			Notus Svelte
+			app.mrashid - Admin
 		</a>
 		<!-- User -->
 		<ul class="md:hidden items-center flex flex-wrap list-none">
@@ -51,9 +60,9 @@
 					<div class="w-6/12">
 						<a
 							class="md:block text-left md:pb-2 text-blueGray-600 mr-0 inline-block whitespace-nowrap text-sm uppercase font-bold p-4 px-0"
-							href="/"
+							href="/dashboard"
 						>
-							Notus Svelte
+							app.mrashid - Admin
 						</a>
 					</div>
 					<div class="w-6/12 flex justify-end">
@@ -84,38 +93,19 @@
 			<h6
 				class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
 			>
-				Admin Layout Pages
+				Dashboard
 			</h6>
 			<!-- Navigation -->
 
 			<ul class="md:flex-col md:min-w-full flex flex-col list-none">
-				<li class="items-center">
-					<a href="/admin/dashboard" class="text-xs uppercase py-3 font-bold block">
-						<i class="fas fa-tv mr-2 text-sm " />
-						Dashboard
-					</a>
-				</li>
-
-				<li class="items-center">
-					<a href="/admin/settings" class="text-xs uppercase py-3 font-bold block ">
-						<i class="fas fa-tools mr-2 text-sm" />
-						Settings
-					</a>
-				</li>
-
-				<li class="items-center">
-					<a href="/admin/tables" class="text-xs uppercase py-3 font-bold block">
-						<i class="fas fa-table mr-2 text-sm " />
-						Tables
-					</a>
-				</li>
-
-				<li class="items-center">
-					<a href="/admin/maps" class="text-xs uppercase py-3 font-bold block ">
-						<i class="fas fa-map-marked mr-2 text-sm " />
-						Maps
-					</a>
-				</li>
+				{#each dashboard as item}
+					<li class="items-center">
+						<a href={item.link} class="text-xs uppercase py-3 font-bold block">
+							<i class={`fas ${item.icon} mr-2 text-sm `} />
+							{item.title}
+						</a>
+					</li>
+				{/each}
 			</ul>
 
 			<!-- Divider -->
@@ -124,30 +114,19 @@
 			<h6
 				class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
 			>
-				Auth Layout Pages
+				Student Data
 			</h6>
 			<!-- Navigation -->
 
 			<ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-				<li class="items-center">
-					<a
-						class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-						href="/auth/login"
-					>
-						<i class="fas fa-fingerprint text-blueGray-300 mr-2 text-sm" />
-						Login
-					</a>
-				</li>
-
-				<li class="items-center">
-					<a
-						class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-						href="/auth/register"
-					>
-						<i class="fas fa-clipboard-list text-blueGray-300 mr-2 text-sm" />
-						Register
-					</a>
-				</li>
+				{#each students as item}
+					<li class="items-center">
+						<a href={item.link} class="text-xs uppercase py-3 font-bold block">
+							<i class={`fas ${item.icon} mr-2 text-sm `} />
+							{item.title}
+						</a>
+					</li>
+				{/each}
 			</ul>
 
 			<!-- Divider -->
@@ -156,30 +135,19 @@
 			<h6
 				class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
 			>
-				No Layout Pages
+				Knowledgebase
 			</h6>
 			<!-- Navigation -->
 
 			<ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
-				<li class="items-center">
-					<a
-						class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-						href="/landing"
-					>
-						<i class="fas fa-newspaper text-blueGray-300 mr-2 text-sm" />
-						Landing Page
-					</a>
-				</li>
-
-				<li class="items-center">
-					<a
-						class="text-blueGray-700 hover:text-blueGray-500 text-xs uppercase py-3 font-bold block"
-						href="/profile"
-					>
-						<i class="fas fa-user-circle text-blueGray-300 mr-2 text-sm" />
-						Profile Page
-					</a>
-				</li>
+				{#each knowledgebase as item}
+					<li class="items-center">
+						<a href={item.link} class="text-xs uppercase py-3 font-bold block">
+							<i class={`fas ${item.icon} mr-2 text-sm `} />
+							{item.title}
+						</a>
+					</li>
+				{/each}
 			</ul>
 
 			<!-- Divider -->

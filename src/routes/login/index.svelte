@@ -1,17 +1,31 @@
+<script context="module">
+	export async function load({ session }) {
+		if (session.user) {
+			return {
+				status: 302,
+				redirect: '/dashboard'
+			};
+		}
+
+		return {};
+	}
+</script>
+
 <script>
 	import { session } from '$app/stores';
 	import { goto } from '$app/navigation';
+	import { post } from '$lib/utils.js';
 
-	let email, password;
+	let email = '',
+		password = '';
 
 	async function handleLogin() {
 		const response = await post(`auth/login`, { email, password });
 
-		let errors = response.errors;
+		console.log(response);
 
 		if (response.user) {
 			$session.user = response.user;
-			goto('/dashboard');
 		}
 	}
 </script>

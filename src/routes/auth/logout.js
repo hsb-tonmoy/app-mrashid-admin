@@ -1,6 +1,6 @@
 import * as api from '$lib/api';
 
-export async function get() {
+export async function post() {
 	const res = await api.post('auth/logout');
 	return {
 		headers: {

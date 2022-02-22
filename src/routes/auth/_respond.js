@@ -16,6 +16,7 @@ export function respond(body) {
 
 	return {
 		headers: {
+			'Content-Type': 'application/json',
 			'set-cookie': [
 				`access=${access_token}; Path=/; Expires=${new Date(access_decoded.exp * 1000)}; HttpOnly`,
 				`refresh=${refresh_token}; Path=/; Expires=${new Date(

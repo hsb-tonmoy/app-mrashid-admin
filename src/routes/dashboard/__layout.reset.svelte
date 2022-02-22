@@ -1,3 +1,26 @@
+<script context="module">
+	export async function load({ fetch, session, stuff }) {
+		if (!session.user) {
+			return {
+				status: 302,
+				redirect: '/login'
+			};
+		}
+
+		// const res = await fetch('/dashboard.json');
+		// const data = await res.json();
+
+		// if (res.ok && res.body) {
+		// 	return {
+		// 		props: { summary: data },
+		// 		stuff: { summary: data }
+		// 	};
+		// }
+
+		return {};
+	}
+</script>
+
 <script>
 	import AdminNavbar from '$lib/Dashboard/Navbars/AdminNavbar.svelte';
 	import Sidebar from '$lib/Dashboard/Sidebar/Sidebar.svelte';
