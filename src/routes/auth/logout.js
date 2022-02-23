@@ -1,7 +1,7 @@
 import * as api from '$lib/api';
 
 export async function post() {
-	const res = await api.post('auth/logout');
+	const res = await api.post('auth/logout/');
 	return {
 		headers: {
 			'set-cookie': [

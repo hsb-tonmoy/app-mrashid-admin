@@ -18,7 +18,7 @@ export async function handle({ event, resolve }) {
 
 	if (user && !cookies.access) {
 		if (!event.request.url.includes('logout')) {
-			const { access } = await api.post('auth/token/refresh', { refresh: cookies.refresh });
+			const { access } = await api.post('auth/token/refresh/', { refresh: cookies.refresh });
 
 			access_token = access;
 			event.locals.access = access;

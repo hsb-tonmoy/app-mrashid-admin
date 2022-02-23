@@ -23,6 +23,17 @@
 	async function handleLogin() {
 		const response = await post(`auth/login`, { email, password });
 
+		if (response.status === 400) {
+			toast.push('Incorrect email or password!', {
+				duration: 5000,
+
+				theme: {
+					'--toastBackground': '#F56565',
+					'--toastBarBackground': '#C53030'
+				}
+			});
+		}
+
 		if (response.status === 401) {
 			toast.push('Unauthorized!', {
 				initial: 0,

@@ -15,7 +15,7 @@ async function send({ method, path, data, token }) {
 		opts.headers['Authorization'] = `JWT ${token}`;
 	}
 
-	return fetch(`${API_URL}/${path}/`, opts)
+	return fetch(`${API_URL}/${path}`, opts)
 		.then((r) => r.json())
 		.then((json) => {
 			try {

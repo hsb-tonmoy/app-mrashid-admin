@@ -1,21 +1,11 @@
 <script context="module">
-	export async function load({ fetch, session, stuff }) {
+	export async function load({ session }) {
 		if (!session.user) {
 			return {
 				status: 302,
 				redirect: '/login'
 			};
 		}
-
-		// const res = await fetch('/dashboard.json');
-		// const data = await res.json();
-
-		// if (res.ok && res.body) {
-		// 	return {
-		// 		props: { summary: data },
-		// 		stuff: { summary: data }
-		// 	};
-		// }
 
 		return {};
 	}

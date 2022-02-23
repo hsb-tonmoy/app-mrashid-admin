@@ -1,51 +1,74 @@
 <script>
+	import Grid from 'gridjs-svelte';
+
 	import { convertDate } from '$lib/convertDate';
 	import TableDropdown from '$lib/Dashboard/Components/Dropdowns/TableDropdown.svelte';
 
 	export let color = 'light';
 
-	const headers = [
-		'ID',
-		'Email',
-		'First Name',
-		'Last Name',
-		'Destination',
-		'Degree',
-		'Major',
-		'English Proficiency',
-		'Status',
-		'Rating',
-		'Created At'
-	];
+	let grid;
 
-	const data = [
+	const columns = [
 		{
-			id: 2,
-			email: 'hasibaman.tonmoy@gmail.com',
-			first_name: 'Hasibaman',
-			last_name: 'Tonmoy',
-			destination: 'USA',
-			degree: 'Undergraduate',
-			major: 'Aviation',
-			english_proficiency: 'ielts',
-			created: '2022-02-16T17:37:35.672123-06:00',
-			status: 0,
-			rating: 1
+			id: 'id',
+			name: 'ID'
 		},
 		{
-			id: 1,
-			email: 'hasibuzZaman.tonmoy@gmail.com',
-			first_name: 'Hasibuzzaman',
-			last_name: 'Tonmoy',
-			destination: 'USA',
-			degree: 'Undergraduate',
-			major: 'Aviation',
-			english_proficiency: 'ielts',
-			created: '2022-02-15T16:37:24-06:00',
-			status: 4,
-			rating: 1
+			id: 'email',
+			name: 'Email'
+		},
+		{
+			id: 'first_name',
+			name: 'First Name'
+		},
+		{
+			id: 'last_name',
+			name: 'Last Name'
+		},
+		{
+			id: 'destination',
+			name: 'Destination'
+		},
+		{
+			id: 'degree',
+			name: 'Degree'
+		},
+		{
+			id: 'major',
+			name: 'Major'
+		},
+		{
+			id: 'english_proficiency',
+			name: 'English Proficiency'
+		},
+		{
+			id: 'status',
+			name: 'Status'
+		},
+		{
+			id: 'rating',
+			name: 'Rating'
+		},
+		{
+			id: 'created',
+			name: 'Created At'
 		}
 	];
+
+	const className = {
+		container: 'studentdata-container',
+		table: 'studentdata-table',
+		thead: 'studentdata-thead',
+		tr: 'studentdata-tr',
+		th: 'studentdata-th',
+		td: 'studentdata-td',
+		pagination: 'studentdata-pagination',
+		paginationSummary: 'studentdata-pagination-summary',
+		paginationButton: 'studentdata-pagination-button',
+		paginationButtonNext: 'studentdata-pagination-button-next',
+		paginationButtonCurrent: 'studentdata-pagination-button-current',
+		paginationButtonPrev: 'studentdata-pagination-button-previous'
+	};
 </script>
 
 <div
@@ -64,87 +87,89 @@
 	</div>
 	<div class="block w-full overflow-x-auto">
 		<!-- Projects table -->
-		<table class="items-center w-full bg-transparent border-collapse">
-			<thead>
-				<tr>
-					{#each headers as header}
-						<th
-							class="px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left {color ===
-							'light'
-								? 'bg-blueGray-50 text-blueGray-500 border-blueGray-100'
-								: 'bg-red-700 text-red-200 border-red-600'}"
-						>
-							{header}
-						</th>
-					{/each}
-				</tr>
-			</thead>
-			<tbody>
-				{#each data as student}
-					<tr>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.id}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.email}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.first_name}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.last_name}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.destination}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.degree}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.major}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.english_proficiency}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.status}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{student.rating}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4"
-						>
-							{convertDate(student.created)}
-						</td>
-						<td
-							class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-right"
-						>
-							<TableDropdown />
-						</td>
-					</tr>
-				{/each}
-			</tbody>
-		</table>
+
+		<Grid
+			{className}
+			bind:instance={grid}
+			pagination={{
+				enabled: true,
+				limit: 50,
+				server: {
+					url: (prev, page, limit) => `${prev}?limit=${limit}&offset=${page * limit}`
+				}
+			}}
+			sort={{
+				multiColumn: false,
+				server: {
+					url: (prev, columns) => {
+						if (!columns.length) return prev;
+
+						const col = columns[0];
+						const dir = col.direction === 1 ? '' : '-';
+						let colName = ['id'][col.index];
+
+						return `${prev}&ordering=${dir}${colName}`;
+					}
+				}
+			}}
+			server={{
+				url: '/dashboard/student-data.json',
+				then: (data) =>
+					data.results.map((student) => {
+						return [
+							student.id,
+							student.email,
+							student.first_name,
+							student.last_name,
+							student.destination,
+							student.degree,
+							student.major,
+							student.english_proficiency,
+							student.status,
+							student.rating,
+							convertDate(student.created)
+						];
+					}),
+				total: (data) => data.count
+			}}
+			{columns}
+		/>
 	</div>
 </div>
+
+<style lang="postcss" global>
+	:global(.studentdata-table) {
+		@apply items-center w-full bg-transparent border-collapse;
+	}
+
+	:global(.studentdata-th) {
+		@apply px-6 pt-4 align-middle border border-solid text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left bg-blueGray-50 text-blueGray-500 border-blueGray-100;
+	}
+	:global(.studentdata-td) {
+		@apply border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4;
+	}
+
+	:global(.studentdata-pagination) {
+		@apply flex justify-end items-center;
+	}
+
+	:global(.studentdata-pagination-summary) {
+		@apply text-xs;
+	}
+
+	:global(.studentdata-pagination-button) {
+		@apply px-4 py-2 text-sm font-medium text-blueGray-700 hover:text-blueGray-800 hover:bg-blueGray-100 focus:outline-none;
+	}
+
+	:global(.studentdata-pagination-button-next) {
+		@apply ml-2;
+	}
+
+	:global(.studentdata-pagination-button-current) {
+		@apply bg-blueGray-100;
+	}
+
+	:global(.studentdata-pagination-button-previous) {
+		@apply ml-2;
+	}
+</style>
