@@ -1,8 +1,6 @@
 import * as api from '$lib/api.js';
 
 export async function get({ url, params, locals }) {
-	console.log(url);
-
 	// const q = new URLSearchParams([
 	// 	['page', page],
 	// 	[type, encodeURIComponent(params.user)]

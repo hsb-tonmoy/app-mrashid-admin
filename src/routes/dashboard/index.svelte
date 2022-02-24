@@ -5,6 +5,10 @@
 	import CardSocialTraffic from '$lib/Dashboard/Components/Cards/CardSocialTraffic.svelte';
 </script>
 
+<svelte:head>
+	<title>app.mrashid.net - Dashboard</title>
+</svelte:head>
+
 <div>
 	<div class="flex flex-wrap">
 		<div class="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">

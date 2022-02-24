@@ -1,5 +1,6 @@
 <script>
 	import Grid from 'gridjs-svelte';
+	import { html } from 'gridjs';
 
 	import { convertDate } from '$lib/convertDate';
 	import TableDropdown from '$lib/Dashboard/Components/Dropdowns/TableDropdown.svelte';
@@ -7,6 +8,27 @@
 	export let color = 'light';
 
 	let grid;
+
+	function statusLight(cell) {
+		let color;
+		let text;
+
+		if (cell === 0) {
+			color = 'text-gray-500';
+			text = 'Default';
+		} else if (cell === 1) {
+			color = 'text-yellow-500';
+			text = 'Package sent';
+		} else if (cell === 2) {
+			color = 'text-green-500';
+			text = 'Converted';
+		} else if (cell === 3) {
+			color = 'text-orange-500';
+			text = 'Follow-up';
+		}
+
+		return `<i class="fas fa-circle ${color} mr-2"></i> ${text}`;
+	}
 
 	const columns = [
 		{
@@ -43,7 +65,8 @@
 		},
 		{
 			id: 'status',
-			name: 'Status'
+			name: 'Status',
+			formatter: (cell) => html(`${statusLight(cell)}`)
 		},
 		{
 			id: 'rating',
@@ -91,13 +114,6 @@
 		<Grid
 			{className}
 			bind:instance={grid}
-			pagination={{
-				enabled: true,
-				limit: 50,
-				server: {
-					url: (prev, page, limit) => `${prev}?limit=${limit}&offset=${page * limit}`
-				}
-			}}
 			sort={{
 				multiColumn: false,
 				server: {
@@ -106,10 +122,30 @@
 
 						const col = columns[0];
 						const dir = col.direction === 1 ? '' : '-';
-						let colName = ['id'][col.index];
+						let colName = [
+							'id',
+							'email',
+							'first_name',
+							'last_name',
+							'destination',
+							'degree',
+							'major',
+							'english_proficiency',
+							'status',
+							'rating',
+							'created'
+						][col.index];
 
-						return `${prev}&ordering=${dir}${colName}`;
+						return `${prev}?ordering=${dir}${colName}`;
 					}
+				}
+			}}
+			pagination={{
+				enabled: true,
+				limit: 50,
+				server: {
+					url: (prev, page, limit) =>
+						`${prev}${prev.includes('?') ? '&' : '?'}limit=${limit}&offset=${page * limit}`
 				}
 			}}
 			server={{
