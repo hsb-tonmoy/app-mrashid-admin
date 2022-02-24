@@ -1,9 +1,9 @@
 import * as api from '$lib/api.js';
 
 export async function get({ url, params, locals }) {
-	const body = await api.get(`student_data/${url.search}`, locals.access);
+	const res = await api.get(`student_data/${params.username}`, locals.access);
 
-	if (body.detail) {
+	if (res.detail) {
 		return {
 			status: 404,
 			ok: false
@@ -12,6 +12,8 @@ export async function get({ url, params, locals }) {
 
 	return {
 		ok: true,
-		body
+		body: {
+			data: res
+		}
 	};
 }

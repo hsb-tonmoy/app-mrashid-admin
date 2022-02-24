@@ -30,10 +30,28 @@
 		return `<i class="fas fa-circle ${color} mr-2"></i> ${text}`;
 	}
 
+	function english_proficiency_output(cell) {
+		if (cell === 'ielts') {
+			return 'IELTS';
+		} else if (cell === 'toefl') {
+			return 'TOEFL';
+		} else if (cell === 'duolingo') {
+			return 'Duolingo';
+		} else if (cell === 'no-test') {
+			return 'Wish to get enrolled without any test';
+		} else if (cell === 'moi') {
+			return 'Wish to get enrolled with Medium Of Instruction';
+		} else if (cell === 'plan-to') {
+			return 'Wish to take IELTS';
+		}
+	}
+
 	const columns = [
 		{
 			id: 'id',
-			name: 'ID'
+			name: 'ID',
+			formatter: (cell) =>
+				html(`<a href="/dashboard/student-data/${cell}" class="text-blue-500">${cell}</a>`)
 		},
 		{
 			id: 'email',
@@ -61,7 +79,8 @@
 		},
 		{
 			id: 'english_proficiency',
-			name: 'English Proficiency'
+			name: 'English Proficiency',
+			formatter: (cell) => `${english_proficiency_output(cell)}`
 		},
 		{
 			id: 'status',
