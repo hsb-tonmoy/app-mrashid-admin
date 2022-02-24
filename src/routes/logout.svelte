@@ -1,5 +1,7 @@
 <script context="module">
-	export function load() {
+	export async function load({ fetch, session }) {
+		const res = await fetch('logout');
+
 		return {
 			status: 302,
 			redirect: '/dashboard'
