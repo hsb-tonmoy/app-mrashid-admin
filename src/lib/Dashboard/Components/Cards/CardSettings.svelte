@@ -1,4 +1,6 @@
 <script>
+	import { end } from '@popperjs/core';
+
 	export let data;
 
 	import { createForm } from 'svelte-forms-lib';
@@ -248,6 +250,81 @@
 						</div>
 					</div>
 				{/if}
+			</div>
+			<hr class="mt-6 border-b-1 border-blueGray-300" />
+
+			<h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Education Information</h6>
+			<div class="flex flex-wrap">
+				{#each $form.education as _, i}
+					<div class="w-full lg:w-3/12 px-4">
+						<div class="relative w-full mb-3">
+							<label
+								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+								for="grid-destination"
+							>
+								Curriculum
+							</label>
+							<input
+								id="grid-destination"
+								type="text"
+								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+								bind:value={$form.education[i].curriculum}
+								on:change={handleChange}
+							/>
+						</div>
+					</div>
+					<div class="w-full lg:w-3/12 px-4">
+						<div class="relative w-full mb-3">
+							<label
+								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+								for="grid-destination"
+							>
+								Level
+							</label>
+							<input
+								id="grid-destination"
+								type="text"
+								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+								bind:value={$form.education[i].level}
+								on:change={handleChange}
+							/>
+						</div>
+					</div>
+					<div class="w-full lg:w-3/12 px-4">
+						<div class="relative w-full mb-3">
+							<label
+								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+								for="grid-destination"
+							>
+								GPA
+							</label>
+							<input
+								id="grid-destination"
+								type="text"
+								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+								bind:value={$form.education[i].gpa}
+								on:change={handleChange}
+							/>
+						</div>
+					</div>
+					<div class="w-full lg:w-3/12 px-4">
+						<div class="relative w-full mb-3">
+							<label
+								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+								for="grid-destination"
+							>
+								Year
+							</label>
+							<input
+								id="grid-destination"
+								type="text"
+								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+								bind:value={$form.education[i].year}
+								on:change={handleChange}
+							/>
+						</div>
+					</div>
+				{/each}
 			</div>
 
 			<hr class="mt-6 border-b-1 border-blueGray-300" />
