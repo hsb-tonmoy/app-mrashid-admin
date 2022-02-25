@@ -1,10 +1,14 @@
 <script>
-	import { end } from '@popperjs/core';
+	import { page } from '$app/stores';
+	import { goto } from '$app/navigation';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let data;
 
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
+
+	import { EP_CHOICES } from '$lib/StudentData/options';
 
 	const { form, state, isValid, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -26,18 +30,59 @@
 			rating: data.rating,
 			created: data.created
 		},
-		validationSchema: yup.object().shape({
-			email: yup
-				.string()
-				.email('Please enter a valid e-mail address')
-				.required('Email address is required')
-				.trim(),
-			password: yup.string().required('Password is required')
-		}),
+		// validationSchema: yup.object().shape({
+		// 	email: yup
+		// 		.string()
+		// 		.email('Please enter a valid e-mail address')
+		// 		.required('Email address is required')
+		// 		.trim(),
+		// 	password: yup.string().required('Password is required')
+		// }),
 		onSubmit: (values) => {
-			handleLogin(values.email, values.password);
+			handleStudentDataSubmit(JSON.stringify(values));
 		}
 	});
+
+	async function handleStudentDataSubmit(body) {
+		const response = await fetch(`/dashboard/student-data/${$page.params.id}`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body
+		});
+
+		if (response.ok) {
+			toast.push(`${$form.first_name} ${$form.last_name}'s data successfully updated`, {
+				duration: 3000,
+
+				theme: {
+					'--toastBackground': '#48BB78',
+					'--toastBarBackground': '#2F855A'
+				}
+			});
+		} else {
+			console.log(response);
+			toast.push('Something went wrong! Please re-check the data', {
+				duration: 5000,
+
+				theme: {
+					'--toastBackground': '#F56565',
+					'--toastBarBackground': '#C53030'
+				}
+			});
+		}
+	}
+
+	export async function deleteStudentData() {
+		const response = await fetch(`/dashboard/student-data/${$page.params.id}`, {
+			method: 'DELETE'
+		});
+
+		if (response.ok) {
+			goto('/dashboard/student-data');
+		}
+	}
 </script>
 
 <div
@@ -49,8 +94,9 @@
 			<button
 				class="bg-red-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
 				type="button"
+				on:click={deleteStudentData}
 			>
-				Student Data
+				Delete
 			</button>
 		</div>
 	</div>
@@ -193,7 +239,7 @@
 						</label>
 						<input
 							id="grid-degree"
-							type="email"
+							type="text"
 							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 							bind:value={$form.degree}
 							on:change={handleChange}
@@ -222,13 +268,16 @@
 						<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-ep">
 							English Proficiency
 						</label>
-						<input
+						<select
 							id="grid-ep"
-							type="text"
 							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 							bind:value={$form.english_proficiency}
 							on:change={handleChange}
-						/>
+						>
+							{#each EP_CHOICES as option}
+								<option value={option.value}>{option.label}</option>
+							{/each}
+						</select>
 					</div>
 				</div>
 				{#if data.english_proficiency === 'ielts' || data.english_proficiency === 'toefl' || data.english_proficiency === 'duolingo'}
@@ -366,6 +415,11 @@
 							on:change={handleChange}
 						/>
 					</div>
+					<button
+						class="bg-green-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+					>
+						Update Data
+					</button>
 				</div>
 			</div>
 		</form>
