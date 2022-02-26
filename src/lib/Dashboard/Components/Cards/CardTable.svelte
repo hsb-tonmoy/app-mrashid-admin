@@ -25,6 +25,9 @@
 		} else if (cell === 3) {
 			color = 'text-orange-500';
 			text = 'Follow-up';
+		} else if (cell === 4) {
+			color = 'text-red-500';
+			text = 'Muted';
 		}
 
 		return `<i class="fas fa-circle ${color} mr-2"></i> ${text}`;
@@ -109,7 +112,8 @@
 		paginationButton: 'studentdata-pagination-button',
 		paginationButtonNext: 'studentdata-pagination-button-next',
 		paginationButtonCurrent: 'studentdata-pagination-button-current',
-		paginationButtonPrev: 'studentdata-pagination-button-previous'
+		paginationButtonPrev: 'studentdata-pagination-button-previous',
+		search: 'studentdata-search'
 	};
 </script>
 
@@ -118,7 +122,7 @@
 		? 'bg-white'
 		: 'bg-red-800 text-white'}"
 >
-	<div class="rounded-t mb-0 px-4 py-3 border-0">
+	<div class="rounded-t mb-0 px-4 py-5 border-0">
 		<div class="flex flex-wrap items-center">
 			<div class="relative w-full px-4 max-w-full flex-grow flex-1">
 				<h3 class="font-semibold text-lg {color === 'light' ? 'text-blueGray-700' : 'text-white'}">
@@ -155,7 +159,7 @@
 							'created'
 						][col.index];
 
-						return `${prev}?ordering=${dir}${colName}`;
+						return `${prev}${prev.includes('?') ? '&' : '?'}ordering=${dir}${colName}`;
 					}
 				}
 			}}
@@ -165,6 +169,11 @@
 				server: {
 					url: (prev, page, limit) =>
 						`${prev}${prev.includes('?') ? '&' : '?'}limit=${limit}&offset=${page * limit}`
+				}
+			}}
+			search={{
+				server: {
+					url: (prev, keyword) => `${prev}${prev.includes('?') ? '&' : '?'}search=${keyword}`
 				}
 			}}
 			server={{
@@ -226,5 +235,12 @@
 
 	:global(.studentdata-pagination-button-previous) {
 		@apply ml-2;
+	}
+
+	:global(.studentdata-search) {
+		@apply flex absolute ml-4 top-0 right-0 mt-3 mr-4;
+	}
+	:global(.gridjs-search-input) {
+		@apply border-0 py-3 pr-6 lg:pr-10 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-full;
 	}
 </style>

@@ -1,14 +1,14 @@
 <script>
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 	import { toast } from '@zerodevx/svelte-toast';
+	import SendStudentEmail from '$lib/StudentData/SendStudentEmail.svelte';
 
 	export let data;
 
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 
-	import { EP_CHOICES } from '$lib/StudentData/options';
+	import { EP_CHOICES, STATUS_CHOICES, PRIORITY_RATINGS } from '$lib/StudentData/options';
 
 	const { form, state, isValid, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -74,14 +74,19 @@
 		}
 	}
 
-	export async function deleteStudentData() {
-		const response = await fetch(`/dashboard/student-data/${$page.params.id}`, {
-			method: 'DELETE'
-		});
+	function addEducationData() {
+		$form.education = $form.education.concat([
+			{
+				curriculum: '',
+				level: '',
+				gpa: '',
+				year: ''
+			}
+		]);
+	}
 
-		if (response.ok) {
-			goto('/dashboard/student-data');
-		}
+	function deleteEducationData() {
+		$form.education = $form.education.slice(0, -1);
 	}
 </script>
 
@@ -91,13 +96,28 @@
 	<div class="rounded-t bg-white mb-0 px-6 py-6">
 		<div class="text-center flex justify-between">
 			<h6 class="text-blueGray-700 text-xl font-bold">{data.first_name} {data.last_name}</h6>
-			<button
-				class="bg-red-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-				type="button"
-				on:click={deleteStudentData}
-			>
-				Delete
-			</button>
+			<div class="flex w-auto lg:w-96 gap-x-4">
+				<select
+					id="grid-status"
+					class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+					bind:value={$form.status}
+					on:change={handleChange}
+				>
+					{#each STATUS_CHOICES as option}
+						<option value={option.value}>{option.label}</option>
+					{/each}
+				</select>
+				<select
+					id="grid-rating"
+					class="fas border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+					bind:value={$form.rating}
+					on:change={handleChange}
+				>
+					{#each PRIORITY_RATINGS as option}
+						<option value={option.value}>{@html option.label}</option>
+					{/each}
+				</select>
+			</div>
 		</div>
 	</div>
 	<div class="flex-auto px-4 lg:px-10 py-10 pt-0">
@@ -374,6 +394,19 @@
 						</div>
 					</div>
 				{/each}
+
+				<div class="w-full flex gap-x-2 lg:w-3/12 px-4">
+					<button
+						type="button"
+						on:click={addEducationData}
+						class="px-4 py-2 bg-blueGray-600 text-xs font-bold text-gray-100 uppercase">Add</button
+					>
+					<button
+						type="button"
+						on:click={deleteEducationData}
+						class="px-4 py-2 bg-red-400 text-xs font-bold text-gray-100 uppercase">Remove</button
+					>
+				</div>
 			</div>
 
 			<hr class="mt-6 border-b-1 border-blueGray-300" />
@@ -415,11 +448,18 @@
 							on:change={handleChange}
 						/>
 					</div>
-					<button
-						class="bg-green-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
-					>
-						Update Data
-					</button>
+					<div class="flex justify-between">
+						<button
+							class="bg-green-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+						>
+							Update Data
+						</button>
+						<SendStudentEmail
+							id={$page.params.id}
+							first_name={$form.first_name}
+							last_name={$form.last_name}
+						/>
+					</div>
 				</div>
 			</div>
 		</form>
