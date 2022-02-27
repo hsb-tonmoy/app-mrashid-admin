@@ -8,7 +8,16 @@
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 
-	import { EP_CHOICES, STATUS_CHOICES, PRIORITY_RATINGS } from '$lib/StudentData/options';
+	import {
+		DESTINATION,
+		DEGREE,
+		EP_CHOICES,
+		STATUS_CHOICES,
+		PRIORITY_RATINGS,
+		MAJORS,
+		CURRICULUM,
+		LEVEL
+	} from '$lib/StudentData/options';
 
 	const { form, state, isValid, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -240,13 +249,16 @@
 						>
 							Destination
 						</label>
-						<input
+						<select
 							id="grid-destination"
-							type="text"
 							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 							bind:value={$form.destination}
 							on:change={handleChange}
-						/>
+						>
+							{#each DESTINATION as option}
+								<option value={option.label}>{option.label}</option>
+							{/each}
+						</select>
 					</div>
 				</div>
 				<div class="w-full lg:w-4/12 px-4">
@@ -257,13 +269,16 @@
 						>
 							Degree
 						</label>
-						<input
+						<select
 							id="grid-degree"
-							type="text"
 							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 							bind:value={$form.degree}
 							on:change={handleChange}
-						/>
+						>
+							{#each DEGREE as option}
+								<option value={option.label}>{option.label}</option>
+							{/each}
+						</select>
 					</div>
 				</div>
 				<div class="w-full lg:w-4/12 px-4">
@@ -274,13 +289,16 @@
 						>
 							Major
 						</label>
-						<input
+						<select
 							id="grid-major"
-							type="text"
 							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 							bind:value={$form.major}
 							on:change={handleChange}
-						/>
+						>
+							{#each MAJORS as option}
+								<option value={option.label}>{option.label}</option>
+							{/each}
+						</select>
 					</div>
 				</div>
 				<div class="w-full lg:w-4/12 px-4">
@@ -329,46 +347,52 @@
 						<div class="relative w-full mb-3">
 							<label
 								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-								for="grid-destination"
+								for="grid-curriculum"
 							>
 								Curriculum
 							</label>
-							<input
-								id="grid-destination"
-								type="text"
+							<select
+								id="grid-curriculum"
 								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 								bind:value={$form.education[i].curriculum}
 								on:change={handleChange}
-							/>
+							>
+								{#each CURRICULUM as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
 						</div>
 					</div>
 					<div class="w-full lg:w-3/12 px-4">
 						<div class="relative w-full mb-3">
 							<label
 								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-								for="grid-destination"
+								for="grid-level"
 							>
 								Level
 							</label>
-							<input
-								id="grid-destination"
-								type="text"
+							<select
+								id="grid-level"
 								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 								bind:value={$form.education[i].level}
 								on:change={handleChange}
-							/>
+							>
+								{#each LEVEL as option}
+									<option value={option}>{option}</option>
+								{/each}
+							</select>
 						</div>
 					</div>
 					<div class="w-full lg:w-3/12 px-4">
 						<div class="relative w-full mb-3">
 							<label
 								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-								for="grid-destination"
+								for="grid-gpa"
 							>
 								GPA
 							</label>
 							<input
-								id="grid-destination"
+								id="grid-gpa"
 								type="text"
 								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 								bind:value={$form.education[i].gpa}
@@ -380,12 +404,12 @@
 						<div class="relative w-full mb-3">
 							<label
 								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-								for="grid-destination"
+								for="grid-year"
 							>
 								Year
 							</label>
 							<input
-								id="grid-destination"
+								id="grid-year"
 								type="text"
 								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 								bind:value={$form.education[i].year}

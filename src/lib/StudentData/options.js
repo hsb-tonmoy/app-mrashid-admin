@@ -1,3 +1,27 @@
+export const DESTINATION = [{ label: 'United States' }, { label: 'F-1 Transfer within US' }];
+
+export const DEGREE = [
+	{ label: 'Undergraduate' },
+	{ label: "Master's" },
+	{ label: 'PhD' },
+	{ label: 'MPH or PharmD' },
+	{ label: 'Other' }
+];
+
+export const MAJORS = [
+	{ label: 'Computer Science' },
+	{ label: 'Engineering' },
+	{ label: 'Sciences' },
+	{ label: 'Business Studies' },
+	{ label: 'Humanities' },
+	{ label: 'Social Sciences' },
+	{ label: 'Health Sciences' },
+	{ label: 'Miscellaneous' }
+];
+
+export const CURRICULUM = ['NCTB', 'English Version', 'English Medium'];
+export const LEVEL = ['SSC', 'HSC', 'O Level', 'A Level', "Bachelor's", "Master's"];
+
 export const EP_CHOICES = [
 	{ value: 'ielts', label: 'IELTS' },
 	{ value: 'toefl', label: 'TOEFL' },
