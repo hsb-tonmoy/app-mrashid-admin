@@ -454,13 +454,12 @@
 						>
 							Update Data
 						</button>
-						{#if $session.user && $session.user.account_type === 6}
-							<SendStudentEmail
-								id={$page.params.id}
-								first_name={$form.first_name}
-								last_name={$form.last_name}
-							/>
-						{/if}
+
+						<SendStudentEmail
+							id={$page.params.id}
+							first_name={$form.first_name}
+							last_name={$form.last_name}
+						/>
 					</div>
 				</div>
 			</div>
