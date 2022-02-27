@@ -46,7 +46,8 @@ export function getSession({ locals }) {
 			email: locals.user.email,
 			first_name: locals.user.first_name,
 			last_name: locals.user.last_name,
-			account_type: locals.user.account_type
+			account_type: locals.user.account_type,
+			profile_pic: locals.user.profile_pic
 		}
 	};
 }

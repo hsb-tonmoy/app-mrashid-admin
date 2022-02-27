@@ -21,5 +21,7 @@
 		/>
 	</svg>
 
-	<h6 class="text-blueGray-400 text-3xl font-bold uppercase">Sorry, user has no timeline yet</h6>
+	<h6 class="text-blueGray-400 text-xl px-4 font-bold uppercase">
+		Sorry, user has no timeline yet
+	</h6>
 </div>
