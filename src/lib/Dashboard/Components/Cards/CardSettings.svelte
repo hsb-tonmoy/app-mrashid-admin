@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page, session } from '$app/stores';
 	import { toast } from '@zerodevx/svelte-toast';
 	import SendStudentEmail from '$lib/StudentData/SendStudentEmail.svelte';
 
@@ -454,11 +454,13 @@
 						>
 							Update Data
 						</button>
-						<SendStudentEmail
-							id={$page.params.id}
-							first_name={$form.first_name}
-							last_name={$form.last_name}
-						/>
+						{#if $session.user && $session.user.account_type === 6}
+							<SendStudentEmail
+								id={$page.params.id}
+								first_name={$form.first_name}
+								last_name={$form.last_name}
+							/>
+						{/if}
 					</div>
 				</div>
 			</div>
