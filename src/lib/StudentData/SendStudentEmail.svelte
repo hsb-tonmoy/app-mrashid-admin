@@ -51,16 +51,15 @@
 	class:hidden={show}
 	class="flex overflow-y-auto overflow-x-hidden fixed right-0 left-0 top-4 z-50 justify-center items-center h-modal md:h-full md:inset-0 bg-black/50"
 >
-	<div class="relative px-4 w-full max-w-2xl h-full md:h-auto">
-		<div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-			<div class="flex justify-end p-2">
+	<div class="relative w-full max-w-2xl h-full md:h-auto">
+		<div class="relative bg-blueGray-100 px-4 rounded-lg shadow dark:bg-gray-700">
+			<div class="flex justify-end py-2">
 				<button
 					on:click={() => {
 						show = !show;
 					}}
 					type="button"
 					class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-					data-modal-toggle="authentication-modal"
 				>
 					<svg
 						class="w-5 h-5"

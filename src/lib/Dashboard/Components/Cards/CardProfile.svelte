@@ -1,7 +1,17 @@
 <script>
+	import TimeAgo from 'javascript-time-ago';
 	import { useTooltip } from '@untemps/svelte-use-tooltip';
 	import { convertDate } from '$lib/convertDate';
+	import AddNote from '$lib/StudentData/AddNote.svelte';
 	export let notes;
+
+	let addNoteShow = false;
+
+	import en from 'javascript-time-ago/locale/en.json';
+
+	TimeAgo.addDefaultLocale(en);
+
+	const timeAgo = new TimeAgo('en-US');
 
 	function priorityColor(priority) {
 		switch (priority) {
@@ -36,65 +46,74 @@
 	</div>
 {:else}
 	<div
-		class="pt-12 pb-6 px-8 relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16"
+		class="relative pt-12 flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16 transition-all ease-in-out duration-300"
 	>
-		<ol class="relative border-l border-gray-200 dark:border-gray-700">
-			{#each notes as note}
-				<li class="mb-10 ml-6">
-					<div
-						class="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900"
-					>
-						<span
-							use:useTooltip={{
-								content: note.created_by.first_name + ' ' + note.created_by.last_name,
-								position: 'left',
-								animated: true
-							}}
+		<div class="px-8">
+			<ol class="relative border-l border-gray-200 dark:border-gray-700 ">
+				{#each notes as note}
+					<li class="mb-10 ml-6">
+						<div
+							class="flex absolute -left-3 justify-center items-center w-6 h-6 bg-blue-200 rounded-full ring-8 ring-white dark:ring-gray-900 dark:bg-blue-900"
 						>
-							<img
-								class="rounded-full shadow-lg cursor-pointer"
-								src={note.created_by.profile_pic}
-								alt={note.created_by.first_name + ' ' + note.created_by.last_name}
-							/>
-						</span>
-					</div>
-					<div
-						class={`p-4 bg-white rounded-lg border ${priorityColor(
-							note.priority
-						)} shadow-sm dark:bg-gray-700 `}
-					>
-						<div class="justify-between items-center sm:flex">
-							<time class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0"
-								>{convertDate(note.date_added)}</time
+							<span
+								use:useTooltip={{
+									content: note.created_by.first_name + ' ' + note.created_by.last_name,
+									position: 'left',
+									animated: true
+								}}
 							>
-							<div class="text-sm font-normal text-stone-800 lex dark:text-gray-300">
-								{note.title}
-								<span
-									class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
-									>{note.category.name}</span
-								>
-								{#if note.internal}
-									<span
-										class="bg-blue-700 text-gray-200 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
-										>Internal</span
-									>
-								{/if}
-							</div>
+								<img
+									class="rounded-full shadow-lg cursor-pointer"
+									src={note.created_by.profile_pic}
+									alt={note.created_by.first_name + ' ' + note.created_by.last_name}
+								/>
+							</span>
 						</div>
-						{#if note.description}
-							<div
-								class="p-3 mt-3 text-xs italic font-normal text-gray-800 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300"
-							>
-								{note.description}
+						<div
+							class={`p-4 bg-white rounded-lg border ${priorityColor(
+								note.priority
+							)} shadow-sm dark:bg-gray-700 `}
+						>
+							<div class="justify-between items-center sm:flex">
+								<time
+									use:useTooltip={{
+										content: convertDate(note.date_added),
+										position: 'top',
+										animated: true
+									}}
+									class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0"
+									>{timeAgo.format(new Date(note.date_added))}</time
+								>
+								<div class="text-sm font-normal text-stone-800 lex dark:text-gray-300">
+									{note.title}
+									<span
+										class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
+										>{note.category.name}</span
+									>
+									{#if note.internal}
+										<span
+											class="bg-blue-700 text-gray-200 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
+											>Internal</span
+										>
+									{/if}
+								</div>
 							</div>
-						{/if}
-					</div>
-				</li>
-			{/each}
-		</ol>
+							{#if note.description}
+								<div
+									class="p-3 mt-3 text-xs italic font-normal text-gray-800 bg-gray-50 rounded-lg border border-gray-200 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300"
+								>
+									{note.description}
+								</div>
+							{/if}
+						</div>
+					</li>
+				{/each}
+			</ol>
+		</div>
 		<button
+			on:click={() => (addNoteShow = !addNoteShow)}
 			type="button"
-			class="self-end mt-6 text-white bg-blueGray-600 hover:bg-blueGray-500 focus:ring-4 font-medium text-xs uppercase px-4 py-2.5 text-center inline-flex items-center"
+			class="self-end my-6 mr-8 text-white bg-blueGray-600 hover:bg-blueGray-500 focus:ring-4 font-medium text-xs uppercase px-4 py-2.5 text-center inline-flex items-center"
 		>
 			Add Note
 			<svg
@@ -111,6 +130,9 @@
 				/>
 			</svg>
 		</button>
+		{#if addNoteShow}
+			<AddNote />
+		{/if}
 	</div>
 {/if}
 

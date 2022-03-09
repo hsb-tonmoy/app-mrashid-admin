@@ -46,3 +46,18 @@ export const PRIORITY_RATINGS = [
 	{ value: 4, label: '&#xf005;&#xf005;&#xf005;&#xf005;' },
 	{ value: 5, label: '&#xf005;&#xf005;&#xf005;&#xf005;&#xf005;' }
 ];
+
+export const CATEGORIES = [
+	{
+		id: 1,
+		name: 'Visa Preparation',
+		slug: 'visa_prep'
+	}
+];
+
+export const NOTE_PRIORITY = [
+	{ value: 1, label: 'Low' },
+	{ value: 2, label: 'Medium' },
+	{ value: 3, label: 'High' },
+	{ value: 4, label: 'Urgent' }
+];
