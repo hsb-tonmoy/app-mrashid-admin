@@ -9,13 +9,13 @@ export async function post({ locals, request }) {
 		return {
 			status: 400,
 			ok: false,
-			body
+			body: res
 		};
 	}
 
 	return {
 		status: 200,
 		ok: true,
-		body
+		body: res
 	};
 }

@@ -39,8 +39,6 @@
 		delete body['note-description'];
 		const response = await post(`note`, body);
 
-		console.log(response);
-
 		if (response.title) {
 			toast.push(`Note successfully sent!`, {
 				duration: 3000,
@@ -51,7 +49,9 @@
 				}
 			});
 			addNoteShow = false;
-			notes = [...notes, response];
+			if (response.date_added) {
+				notes = [...notes, response];
+			}
 		} else {
 			console.log(response);
 			toast.push(`${response.error ? response.error : 'Something went wrong'}`, {
