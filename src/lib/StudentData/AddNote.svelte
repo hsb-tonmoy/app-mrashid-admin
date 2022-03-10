@@ -1,9 +1,10 @@
 <script>
-	import { page } from '$app/stores';
 	import { toast } from '@zerodevx/svelte-toast';
-	import { CATEGORIES, NOTE_PRIORITY } from './options';
+	import { NOTE_CATEGORIES, NOTE_PRIORITY } from './options';
 
-	export let student_id;
+	import { post } from '$lib/utils';
+
+	export let student_id, addNoteShow;
 
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
@@ -14,7 +15,7 @@
 			description: '',
 			internal: false,
 			priority: 1,
-			category: '',
+			category: 1,
 			student: student_id
 		},
 		// validationSchema: yup.object().shape({
@@ -26,21 +27,17 @@
 		// 	password: yup.string().required('Password is required')
 		// }),
 		onSubmit: (values) => {
-			handleStudentDataSubmit(JSON.stringify(values));
+			submitNote(values);
 		}
 	});
 
-	async function handleStudentDataSubmit(body) {
-		const response = await fetch(`/dashboard/student-data/${$page.params.id}`, {
-			method: 'PATCH',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body
-		});
+	async function submitNote(body) {
+		delete body['note-title'];
+		delete body['note-description'];
+		const response = await post(`note`, body);
 
-		if (response.ok) {
-			toast.push(`${$form.first_name} ${$form.last_name}'s data successfully updated`, {
+		if (response.id) {
+			toast.push(`Note successfully sent!`, {
 				duration: 3000,
 
 				theme: {
@@ -50,7 +47,7 @@
 			});
 		} else {
 			console.log(response);
-			toast.push('Something went wrong! Please re-check the data', {
+			toast.push(`${response.error ? response.error : 'Something went wrong'}`, {
 				duration: 5000,
 
 				theme: {
@@ -62,21 +59,24 @@
 	}
 </script>
 
-<form class="bg-blueGray-100 px-4" on:submit|preventDefault={handleSubmit}>
+<form
+	class="animate__animated animate__slideInDown bg-blueGray-100 px-4 pt-2 mt-6"
+	on:submit|preventDefault={handleSubmit}
+>
 	<h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Add a Note</h6>
 	<div class="flex flex-wrap">
 		<div class="w-full lg:w-6/12">
 			<div class="relative w-full mb-3">
-				<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-category">
+				<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="note-category">
 					Category
 				</label>
 				<select
-					id="grid-category"
+					id="note-category"
 					class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 					bind:value={$form.category}
 					on:change={handleChange}
 				>
-					{#each CATEGORIES as option}
+					{#each $NOTE_CATEGORIES as option}
 						<option value={option.id}>{option.name}</option>
 					{/each}
 				</select>
@@ -84,11 +84,11 @@
 		</div>
 		<div class="w-full lg:w-6/12">
 			<div class="relative w-full mb-3">
-				<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-priority">
+				<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="note-priority">
 					Priority
 				</label>
 				<select
-					id="grid-priority"
+					id="note-priority"
 					class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 					bind:value={$form.priority}
 					on:change={handleChange}
@@ -101,11 +101,11 @@
 		</div>
 		<div class="w-full">
 			<div class="relative w-full mb-3">
-				<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-title">
+				<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="note-title">
 					Title
 				</label>
 				<input
-					id="grid-title"
+					id="note-title"
 					type="text"
 					class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 					bind:value={$form.title}
@@ -117,19 +117,34 @@
 			<div class="relative w-full mb-3">
 				<label
 					class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-					for="grid-description"
+					for="note-description"
 				>
 					Description
 				</label>
 				<textarea
-					id="grid-description"
-					type="text"
+					id="note-description"
 					class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 					rows="5"
 					bind:value={$form.description}
 					on:change={handleChange}
 				/>
 			</div>
+		</div>
+
+		<div class="flex gap-x-4">
+			<button
+				type="submit"
+				class="my-6 text-white bg-blueGray-600 hover:bg-blueGray-500 focus:ring-4 font-medium text-xs uppercase px-4 py-2.5 text-center"
+			>
+				Submit
+			</button>
+			<button
+				on:click={() => (addNoteShow = !addNoteShow)}
+				type="button"
+				class="my-6 text-white bg-blueGray-600 hover:bg-blueGray-500 focus:ring-4 font-medium text-xs uppercase px-4 py-2.5 text-center"
+			>
+				Cancel
+			</button>
 		</div>
 	</div>
 </form>
