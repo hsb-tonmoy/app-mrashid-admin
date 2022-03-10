@@ -1,8 +1,12 @@
 <script>
 	import CardSettings from '$lib/Dashboard/Components/Cards/CardSettings.svelte';
 	import CardProfile from '$lib/Dashboard/Components/Cards/CardProfile.svelte';
+	import { NOTE_CATEGORIES } from '$lib/StudentData/options';
 	export let data;
 	export let notes;
+	export let notes_categories;
+
+	$NOTE_CATEGORIES = notes_categories;
 </script>
 
 <svelte:head>

@@ -3,6 +3,7 @@ import * as api from '$lib/api.js';
 export async function get({ params, locals }) {
 	const res = await api.get(`student_data/${params.id}/`, locals.access);
 	const notes = await api.get(`note/?student=${params.id}`, locals.access);
+	const notes_categories = await api.get(`note_category/`, locals.access);
 
 	if (res.detail) {
 		return {
@@ -15,7 +16,8 @@ export async function get({ params, locals }) {
 		ok: true,
 		body: {
 			data: res,
-			notes
+			notes,
+			notes_categories
 		}
 	};
 }

@@ -1,3 +1,5 @@
+import { writable } from 'svelte/store';
+
 export const DESTINATION = [{ label: 'United States' }, { label: 'F-1 Transfer within US' }];
 
 export const DEGREE = [
@@ -47,13 +49,7 @@ export const PRIORITY_RATINGS = [
 	{ value: 5, label: '&#xf005;&#xf005;&#xf005;&#xf005;&#xf005;' }
 ];
 
-export const CATEGORIES = [
-	{
-		id: 1,
-		name: 'Visa Preparation',
-		slug: 'visa_prep'
-	}
-];
+export const NOTE_CATEGORIES = writable([]);
 
 export const NOTE_PRIORITY = [
 	{ value: 1, label: 'Low' },
