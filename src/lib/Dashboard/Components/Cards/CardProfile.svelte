@@ -4,15 +4,13 @@
 	import { useTooltip } from '@untemps/svelte-use-tooltip';
 	import { convertDate } from '$lib/convertDate';
 	import AddNote from '$lib/StudentData/AddNote.svelte';
-	export let notes;
-
-	$: console.log(notes);
-
-	let addNoteShow = false;
-
 	import en from 'javascript-time-ago/locale/en.json';
 
 	TimeAgo.addDefaultLocale(en);
+
+	export let notes;
+
+	let addNoteShow = false;
 
 	const timeAgo = new TimeAgo('en-US');
 
@@ -135,7 +133,7 @@
 				</svg>
 			</button>
 		{:else}
-			<AddNote student_id={$page.params.id} bind:addNoteShow />
+			<AddNote bind:notes student_id={$page.params.id} bind:addNoteShow />
 		{/if}
 	</div>
 {/if}

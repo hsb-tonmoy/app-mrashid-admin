@@ -1,10 +1,11 @@
 <script>
+	import { session } from '$app/stores';
 	import { toast } from '@zerodevx/svelte-toast';
 	import { NOTE_CATEGORIES, NOTE_PRIORITY } from './options';
 
 	import { post } from '$lib/utils';
 
-	export let student_id, addNoteShow;
+	export let notes, student_id, addNoteShow;
 
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
@@ -14,9 +15,11 @@
 			title: '',
 			description: '',
 			internal: false,
+			complete: false,
 			priority: 1,
 			category: 1,
-			student: student_id
+			student: student_id,
+			created_by: $session.user.id
 		},
 		// validationSchema: yup.object().shape({
 		// 	email: yup
@@ -36,7 +39,9 @@
 		delete body['note-description'];
 		const response = await post(`note`, body);
 
-		if (response.id) {
+		console.log(response);
+
+		if (response.title) {
 			toast.push(`Note successfully sent!`, {
 				duration: 3000,
 
@@ -45,6 +50,8 @@
 					'--toastBarBackground': '#2F855A'
 				}
 			});
+			addNoteShow = false;
+			notes = [...notes, response];
 		} else {
 			console.log(response);
 			toast.push(`${response.error ? response.error : 'Something went wrong'}`, {
