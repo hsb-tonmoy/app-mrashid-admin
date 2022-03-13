@@ -12,6 +12,10 @@
 
 	let addNoteShow = false;
 
+	let editing = false;
+
+	let editingData = {};
+
 	const timeAgo = new TimeAgo('en-US');
 
 	function priorityColor(priority) {
@@ -27,6 +31,11 @@
 			default:
 				return 'border-gray-200';
 		}
+	}
+
+	function onNoteClick(note) {
+		editing = true;
+		editingData = note;
 	}
 </script>
 
@@ -85,7 +94,10 @@
 									class="mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0"
 									>{timeAgo.format(new Date(note.date_added))}</time
 								>
-								<div class="text-sm font-normal text-stone-800 lex dark:text-gray-300">
+								<div
+									class="text-sm font-normal decoration-dotted text-stone-800 lex dark:text-gray-300"
+									class:line-through={note.complete}
+								>
 									{note.title}
 									<span
 										class="bg-gray-100 text-gray-800 text-xs font-normal mr-2 px-2.5 py-0.5 rounded dark:bg-gray-600 dark:text-gray-300"
