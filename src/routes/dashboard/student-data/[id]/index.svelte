@@ -6,6 +6,9 @@
 	export let data;
 	export let notes;
 	export let notes_categories;
+	export let student_progress;
+
+	$: console.log(student_progress);
 
 	$NOTE_CATEGORIES = notes_categories;
 </script>

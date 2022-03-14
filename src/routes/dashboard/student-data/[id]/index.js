@@ -4,6 +4,7 @@ export async function get({ params, locals }) {
 	const res = await api.get(`student_data/${params.id}/`, locals.access);
 	const notes = await api.get(`note/?student=${params.id}`, locals.access);
 	const notes_categories = await api.get(`note_category/`, locals.access);
+	const student_progress = await api.get(`student_progress/${params.id}/`, locals.access);
 
 	if (res.detail) {
 		return {
@@ -17,7 +18,8 @@ export async function get({ params, locals }) {
 		body: {
 			data: res,
 			notes,
-			notes_categories
+			notes_categories,
+			student_progress
 		}
 	};
 }

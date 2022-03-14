@@ -1,5 +1,7 @@
 <script>
 	import { timeline_options } from './timeline';
+
+	export let data;
 </script>
 
 <section class="timeline-grid overflow-y-auto">
