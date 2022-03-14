@@ -1,6 +1,7 @@
 <script>
 	import CardSettings from '$lib/Dashboard/Components/Cards/CardSettings.svelte';
 	import CardProfile from '$lib/Dashboard/Components/Cards/CardProfile.svelte';
+	import CardTimeline from '$lib/Dashboard/Components/Cards/CardTimeline.svelte';
 	import { NOTE_CATEGORIES } from '$lib/StudentData/options';
 	export let data;
 	export let notes;
@@ -19,5 +20,6 @@
 	</div>
 	<div class="w-full lg:w-2/5 px-4">
 		<CardProfile {notes} />
+		<CardTimeline />
 	</div>
 </div>
