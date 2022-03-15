@@ -8,8 +8,6 @@
 	export let notes_categories;
 	export let student_progress;
 
-	$: console.log(student_progress);
-
 	$NOTE_CATEGORIES = notes_categories;
 </script>
 
@@ -23,6 +21,6 @@
 	</div>
 	<div class="w-full lg:w-2/5 px-4">
 		<CardProfile {notes} />
-		<CardTimeline />
+		<CardTimeline {student_progress} />
 	</div>
 </div>

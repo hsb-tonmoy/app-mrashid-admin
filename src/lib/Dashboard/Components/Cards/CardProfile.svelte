@@ -39,26 +39,11 @@
 	}
 </script>
 
-{#if notes.length === 0}
-	<div class="py-8 bg-white mb-6 shadow-xl rounded-lg mt-16">
-		<svg class="h-12 w-12 text-blueGray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-			<path
-				stroke-linecap="round"
-				stroke-linejoin="round"
-				stroke-width="2"
-				d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
-			/>
-		</svg>
-
-		<h6 class="text-blueGray-400 text-xl px-4 font-bold uppercase">
-			Sorry, user has no timeline yet
-		</h6>
-	</div>
-{:else}
-	<div
-		class="relative pt-12 flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16 transition-all ease-in-out duration-300"
-	>
-		<div class="px-8">
+<div
+	class="relative pt-12 flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg mt-16 transition-all ease-in-out duration-300"
+>
+	<div class="px-8">
+		{#if notes.length > 0}
 			<ol class="relative border-l border-gray-200 dark:border-gray-700 ">
 				{#each notes as note}
 					<li class="mb-10 ml-6">
@@ -122,33 +107,37 @@
 					</li>
 				{/each}
 			</ol>
-		</div>
-		{#if !addNoteShow}
-			<button
-				on:click={() => (addNoteShow = !addNoteShow)}
-				type="button"
-				class="self-end my-6 mr-8 text-white bg-blueGray-600 hover:bg-blueGray-500 focus:ring-4 font-medium text-xs uppercase px-4 py-2.5 text-center inline-flex items-center"
-			>
-				Add Note
-				<svg
-					class="ml-2 -mr-1 w-4 h-4"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					stroke-width="2"
-				>
-					<path
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-					/>
-				</svg>
-			</button>
 		{:else}
-			<AddNote bind:notes student_id={$page.params.id} bind:addNoteShow />
+			<div class="flex items-center justify-center">
+				<div class="text-center text-gray-600 text-sm">No notes to display</div>
+			</div>
 		{/if}
 	</div>
-{/if}
+	{#if !addNoteShow}
+		<button
+			on:click={() => (addNoteShow = !addNoteShow)}
+			type="button"
+			class="self-end my-6 mr-8 text-white bg-blueGray-600 hover:bg-blueGray-500 focus:ring-4 font-medium text-xs uppercase px-4 py-2.5 text-center inline-flex items-center"
+		>
+			Add Note
+			<svg
+				class="ml-2 -mr-1 w-4 h-4"
+				fill="none"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				stroke-width="2"
+			>
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+				/>
+			</svg>
+		</button>
+	{:else}
+		<AddNote bind:notes student_id={$page.params.id} bind:addNoteShow />
+	{/if}
+</div>
 
 <style lang="postcss">
 	:global(.tooltip-left) {
