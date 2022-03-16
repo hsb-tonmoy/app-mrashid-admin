@@ -1,5 +1,5 @@
 <script>
-	import Timeline from '$lib/StudentData/Timeline.svelte';
+	import Timeline from '$lib/StudentData/Timeline/Timeline.svelte';
 
 	export let student_progress;
 </script>
