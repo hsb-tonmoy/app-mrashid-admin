@@ -7,6 +7,8 @@
 
 	export let notes, student_id, addNoteShow;
 
+	$: console.log($session.user.id);
+
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 
