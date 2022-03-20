@@ -7,7 +7,7 @@
 
 	export let notes, student_id, addNoteShow;
 
-	$: console.log($session.user.id);
+	$: created_by = $session.user.id;
 
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
@@ -21,7 +21,7 @@
 			priority: 1,
 			category: 1,
 			student: student_id,
-			created_by: $session.user.id
+			created_by: created_by
 		},
 		validationSchema: yup.object().shape({
 			'note-title': yup.string().required('Title is required').trim()
