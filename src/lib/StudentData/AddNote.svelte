@@ -10,8 +10,6 @@
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 
-	$: console.log($session.user);
-
 	const { form, state, isValid, handleChange, handleSubmit } = createForm({
 		initialValues: {
 			title: '',
