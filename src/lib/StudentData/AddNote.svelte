@@ -12,7 +12,7 @@
 	import { createForm } from 'svelte-forms-lib';
 	import * as yup from 'yup';
 
-	const { form, state, isValid, handleChange, handleSubmit } = createForm({
+	let { form, state, isValid, handleChange, handleSubmit } = createForm({
 		initialValues: {
 			title: '',
 			description: '',
