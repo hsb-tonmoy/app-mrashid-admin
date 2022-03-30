@@ -3,7 +3,6 @@
 	import { html } from 'gridjs';
 
 	import { convertDate } from '$lib/convertDate';
-	import TableDropdown from '$lib/Dashboard/Components/Dropdowns/TableDropdown.svelte';
 
 	export let color = 'light';
 

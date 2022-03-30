@@ -10,7 +10,7 @@
 
 	const dashboard = [
 		{ title: 'Dashboard', link: '/dashboard', icon: 'fa-tv' },
-		{ title: 'Accounts', link: '/accounts', icon: 'fa-user' }
+		{ title: 'Accounts', link: '/dashboard/accounts', icon: 'fa-user' }
 	];
 
 	const students = [{ title: 'Student Data', link: '/dashboard/student-data', icon: 'fa-table' }];

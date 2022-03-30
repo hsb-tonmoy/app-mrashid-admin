@@ -28,11 +28,13 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@felte/validator-yup": "^1.0.3",
 		"@popperjs/core": "^2.11.2",
 		"@tailwindcss/forms": "^0.4.0",
 		"@untemps/svelte-use-tooltip": "^2.7.0",
 		"chart.js": "^2.9.4",
 		"cookie": "^0.4.2",
+		"felte": "^1.1.5",
 		"gridjs": "^5.0.2",
 		"gridjs-svelte": "^2.1.0",
 		"javascript-time-ago": "^2.3.13",
