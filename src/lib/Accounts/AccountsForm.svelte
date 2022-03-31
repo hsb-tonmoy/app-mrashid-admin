@@ -1,12 +1,20 @@
 <script>
 	import { page } from '$app/stores';
 	import { toast } from '@zerodevx/svelte-toast';
+	import Select from 'svelte-select';
 
 	export let account_data;
 
 	import { createForm } from 'felte';
 	import { validator } from '@felte/validator-yup';
 	import * as yup from 'yup';
+
+	import loadStudentData from './SelectElement/student-data';
+	import Item from './SelectElement/Item.svelte';
+
+	const tagIdentifier = 'id';
+	const getTagLabel = (option) => option.first_name + ' ' + option.last_name;
+	const getSelectionLabel = (option) => option.first_name + ' ' + option.last_name;
 
 	const schema = yup.object({
 		email: yup.string().email().required()
@@ -90,6 +98,31 @@
 							disabled
 							type="text"
 							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-200 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+						/>
+					</div>
+				</div>
+				<div class="w-full lg:w-6/12 px-4">
+					<div class="relative w-full mb-3">
+						<label
+							class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+							for="student-data"
+						>
+							Student Data
+						</label>
+						<Select
+							loadOptions={loadStudentData}
+							{tagIdentifier}
+							{getSelectionLabel}
+							{getTagLabel}
+							{Item}
+							bind:value={$data.student}
+							id={'student-data'}
+							placeholder="Student Data"
+							containerClasses="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+							showChevron={true}
+							on:select={(event) => {
+								console.log(event.detail);
+							}}
 						/>
 					</div>
 				</div>

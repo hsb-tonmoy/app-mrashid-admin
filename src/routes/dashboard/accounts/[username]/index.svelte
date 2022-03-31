@@ -1,6 +1,6 @@
 <script>
-	import AccountsForm from '$lib/Dashboard/Accounts/AccountsForm.svelte';
-	import AccountsProfile from '$lib/Dashboard/Accounts/AccountsProfile.svelte';
+	import AccountsForm from '$lib/Accounts/AccountsForm.svelte';
+	import AccountsProfile from '$lib/Accounts/AccountsProfile.svelte';
 	export let data;
 </script>
 

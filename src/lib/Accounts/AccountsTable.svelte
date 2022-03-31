@@ -8,10 +8,25 @@
 	import { convertDate } from '$lib/convertDate';
 
 	import { checkmark, crossmark } from '$lib/svg/accounts';
+	import { ACCOUNT_TYPES } from './constants';
 
 	export let color = 'light';
 
 	let grid;
+
+	function returnAccountType(type) {
+		let color = '';
+
+		if (type === 1) color = `text-inherit`;
+		else if (type === 2) color = `text-indigo-600`;
+		else if (type === 3) color = `text-orange-600`;
+		else if (type === 4) color = `text-emerald-600`;
+		else if (type === 5) color = `text-red-600`;
+		else if (type === 6) color = `font-bold text-red-600`;
+		else color = 'text-inherit';
+
+		return `<span class="${color}">${ACCOUNT_TYPES[type]}</span>`;
+	}
 
 	function returnMark(value) {
 		if (value === true) {
@@ -62,12 +77,17 @@
 		{
 			id: 'is_staff',
 			name: 'Manager',
-			formatter: (cell, row) => html(returnMark(cell))
+			hidden: true
 		},
 		{
 			id: 'is_superuser',
 			name: 'SuperAdmin',
 			hidden: true
+		},
+		{
+			id: 'account_type',
+			name: 'Account Type',
+			formatter: (cell, row) => html(returnAccountType(cell))
 		},
 		{
 			id: 'date_joined',
@@ -134,6 +154,7 @@
 							'is_active',
 							'is_staff',
 							'is_superuser',
+							'account_type',
 							'last_login',
 							'date_joined'
 						][col.index];
@@ -169,6 +190,7 @@
 							account.is_active,
 							account.is_staff,
 							account.is_superuser,
+							account.account_type,
 							convertDate(account.date_joined),
 							timeAgo.format(new Date(account.last_login))
 						];

@@ -1,5 +1,5 @@
 <script>
-	import AccountsTable from '$lib/Dashboard/Accounts/AccountsTable.svelte';
+	import AccountsTable from '$lib/Accounts/AccountsTable.svelte';
 </script>
 
 <svelte:head>
