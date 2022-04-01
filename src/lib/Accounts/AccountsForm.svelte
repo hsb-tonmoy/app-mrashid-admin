@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page, session } from '$app/stores';
 	import { toast } from '@zerodevx/svelte-toast';
 	import Select from 'svelte-select';
 
@@ -12,9 +12,11 @@
 	import loadStudentData from './SelectElement/student-data';
 	import Item from './SelectElement/Item.svelte';
 
-	const tagIdentifier = 'id';
-	const getTagLabel = (option) => option.first_name + ' ' + option.last_name;
-	const getSelectionLabel = (option) => option.first_name + ' ' + option.last_name;
+	const studentIdentifier = 'id';
+	const getStudentLabel = (option) =>
+		`${option.id} - ${option.first_name} ${option.last_name} (${option.email})`;
+	const getSelectionLabel = (option) =>
+		`${option.id} - ${option.first_name} ${option.last_name} (${option.email})`;
 
 	const schema = yup.object({
 		email: yup.string().email().required()
@@ -27,21 +29,21 @@
 			last_name: account_data.last_name,
 			email: account_data.email,
 			username: account_data.username,
-			account_type: account_data.account_type,
+			account_type: account_data.account_type.toString(),
 			student: account_data.student,
 			is_staff: account_data.is_staff,
 			is_active: account_data.is_active,
 			date_joined: account_data.date_joined
 		},
 		extend: validator({ schema }),
+
 		onSubmit(values, context) {
-			console.log(values);
-			// handleAccountsSubmit(JSON.stringify(values));
+			handleAccountsSubmit(JSON.stringify(values));
 		}
 	});
 
 	async function handleAccountsSubmit(body) {
-		const response = await fetch(`/dashboard/accounts/${$page.params.id}`, {
+		const response = await fetch(`/dashboard/accounts/${$page.params.username}`, {
 			method: 'PATCH',
 			headers: {
 				'Content-Type': 'application/json'
@@ -72,7 +74,8 @@
 	}
 </script>
 
-<div
+<form
+	use:form
 	class="relative flex flex-col min-w-0 break-words w-full mb-6 shadow-lg rounded-lg bg-blueGray-100 border-0"
 >
 	<div class="rounded-t bg-white mb-0 px-6 py-6">
@@ -81,10 +84,27 @@
 				{account_data.first_name}
 				{account_data.last_name}
 			</h6>
+			{#if $session.user && ($session.user.account_type === 4 || $session.user.account_type === 5 || $session.user.account_type === 6)}
+				<div class="flex w-auto lg:w-96 gap-x-4">
+					<select
+						id="account_type"
+						name="account_type"
+						class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+						bind:value={$data.account_type}
+					>
+						<option value="1">Visitor</option>
+						<option value="2">Client</option>
+						<option value="3">Consultant</option>
+						<option disabled={$session.user.account_type < 4} value="4">Manager</option>
+						<option disabled={$session.user.account_type < 5} value="5">Admin</option>
+						<option disabled={$session.user.account_type < 6} value="6">SuperAdmin</option>
+					</select>
+				</div>
+			{/if}
 		</div>
 	</div>
 	<div class="flex-auto px-4 lg:px-10 py-10 pt-0">
-		<form use:form>
+		<section>
 			<h6 class="text-blueGray-400 text-sm mt-3 mb-6 font-bold uppercase">Account Information</h6>
 			<div class="flex flex-wrap">
 				<div class="w-full lg:w-6/12 px-4">
@@ -111,17 +131,17 @@
 						</label>
 						<Select
 							loadOptions={loadStudentData}
-							{tagIdentifier}
+							optionIdentifier={studentIdentifier}
 							{getSelectionLabel}
-							{getTagLabel}
+							getOptionLabel={getStudentLabel}
 							{Item}
 							bind:value={$data.student}
-							id={'student-data'}
+							id="student-data"
 							placeholder="Student Data"
 							containerClasses="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 							showChevron={true}
 							on:select={(event) => {
-								console.log(event.detail);
+								$data.student = event.detail;
 							}}
 						/>
 					</div>
@@ -181,9 +201,48 @@
 						/>
 					</div>
 				</div>
+				<div class="w-full lg:w-6/12 px-4 mt-4">
+					{#if ($session.user && $session.user.account_type === 4) || $session.user.account_type === 5 || $session.user.account_type === 6}
+						<div>
+							<label class="inline-flex items-center cursor-pointer">
+								<input
+									id="is_active"
+									bind:checked={$data.is_active}
+									type="checkbox"
+									class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+								/>
+								<span class="ml-2 text-sm font-semibold text-blueGray-600">
+									Is the account active?
+								</span>
+							</label>
+						</div>
+					{/if}
+					{#if $session.user && ($session.user.account_type === 5 || $session.user.account_type === 6)}
+						<div>
+							<label class="inline-flex items-center cursor-pointer">
+								<input
+									id="is_staff"
+									bind:checked={$data.is_staff}
+									type="checkbox"
+									class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+								/>
+								<span class="ml-2 text-sm font-semibold text-blueGray-600">
+									Is the user a staff?
+								</span>
+							</label>
+						</div>
+					{/if}
+				</div>
+				<div class="w-full px-4 mt-6 text-right">
+					<button
+						class="bg-green-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+					>
+						Update Data
+					</button>
+				</div>
 			</div>
 
 			<hr class="mt-6 border-b-1 border-blueGray-300" />
-		</form>
+		</section>
 	</div>
-</div>
+</form>

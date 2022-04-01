@@ -24,7 +24,9 @@
 
 <div class="customItem {itemClasses}">
 	<div class="customItem_title">
-		<div class="customItem_name">{item.first_name + item.last_name}</div>
+		<div class="customItem_name">
+			{`${item.id} - ${item.first_name} ${item.last_name} (${item.email})`}
+		</div>
 	</div>
 </div>
 
@@ -56,12 +58,6 @@
 
 	.customItem.hover:not(.active) {
 		background: #e7f2ff;
-	}
-
-	img {
-		width: 5px;
-		padding: 5px 0;
-		margin: 0 10px;
 	}
 
 	.customItem_title {

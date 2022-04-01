@@ -8,7 +8,7 @@
 	import { convertDate } from '$lib/convertDate';
 
 	import { checkmark, crossmark } from '$lib/svg/accounts';
-	import { ACCOUNT_TYPES } from './constants';
+	import { DISPLAY_ACCOUNT_TYPES } from './constants';
 
 	export let color = 'light';
 
@@ -25,7 +25,7 @@
 		else if (type === 6) color = `font-bold text-red-600`;
 		else color = 'text-inherit';
 
-		return `<span class="${color}">${ACCOUNT_TYPES[type]}</span>`;
+		return `<span class="${color}">${DISPLAY_ACCOUNT_TYPES[type]}</span>`;
 	}
 
 	function returnMark(value) {

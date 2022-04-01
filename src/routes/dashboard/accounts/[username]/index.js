@@ -18,9 +18,13 @@ export async function get({ params, locals }) {
 
 export async function patch({ params, locals, request }) {
 	const body = await request.json();
+
+	const student_id = body.student.id;
+	body['student'] = student_id;
+
 	const res = await api.patch(`accounts/${params.username}/`, body, locals.access);
 
-	if (res.detail) {
+	if (!(res.first_name && res.last_name)) {
 		return {
 			status: 400,
 			ok: false
