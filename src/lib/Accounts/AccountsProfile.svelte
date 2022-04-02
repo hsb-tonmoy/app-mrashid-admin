@@ -17,22 +17,31 @@
 				</div>
 			</div>
 		</div>
+
 		<div class="text-center mt-28">
-			<h3 class="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
-				{`${account_data.first_name} ${account_data.last_name}`}
-			</h3>
-			<div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
-				<i class="fas fa-plane-departure mr-2 text-lg text-blueGray-400" />
-				{account_data.student.destination}
-			</div>
-			<div class="mb-2 text-blueGray-600 mt-10">
-				<i class="fas fa-graduation-cap mr-2 text-lg text-blueGray-400" />
-				{account_data.student.major}
-			</div>
-			<div class="mb-2 text-blueGray-600">
-				<i class="fas fa-scroll mr-2 text-lg text-blueGray-400" />
-				{account_data.student.english_proficiency.toUpperCase()}
-			</div>
+			{#if account_data.student}
+				<h3 class="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
+					{`${account_data.first_name} ${account_data.last_name}`}
+				</h3>
+				<div class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase">
+					<i class="fas fa-plane-departure mr-2 text-lg text-blueGray-400" />
+					{account_data.student.destination}
+				</div>
+				<div class="mb-2 text-blueGray-600 mt-10">
+					<i class="fas fa-graduation-cap mr-2 text-lg text-blueGray-400" />
+					{account_data.student.major}
+				</div>
+				<div class="mb-2 text-blueGray-600">
+					<i class="fas fa-scroll mr-2 text-lg text-blueGray-400" />
+					{account_data.student.english_proficiency.toUpperCase()}
+				</div>
+			{:else}
+				<div class="flex justify-center items-center">
+					<h3 class="text-xl font-semibold leading-normal text-blueGray-700 mb-2">
+						No associated student data
+					</h3>
+				</div>
+			{/if}
 		</div>
 		<div class="mt-10 py-10 border-t border-blueGray-200 text-center" />
 	</div>

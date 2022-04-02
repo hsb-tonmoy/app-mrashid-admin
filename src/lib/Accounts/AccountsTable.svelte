@@ -58,6 +58,18 @@
 				)
 		},
 		{
+			id: 'student',
+			name: 'Student Data',
+			formatter: (cell, row) =>
+				html(
+					`<a href="${
+						cell ? '/dashboard/student-data/' + cell.id : '#'
+					}"><span class="font-medium hover:font-bold">${
+						cell ? cell.first_name + ' ' + cell.last_name : 'NA'
+					}</span></a>`
+				)
+		},
+		{
 			id: 'email',
 			name: 'Email'
 		},
@@ -150,6 +162,7 @@
 							'first_name',
 							'last_name',
 							'username',
+							'student',
 							'profile_pic',
 							'is_active',
 							'is_staff',
@@ -184,6 +197,7 @@
 							account.profile_pic,
 							account.id,
 							account.username,
+							account.student,
 							account.email,
 							account.first_name,
 							account.last_name,
