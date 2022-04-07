@@ -5,6 +5,7 @@
 	import TimelineItem from './TimelineItem.svelte';
 
 	export let student_progress;
+	export let student_id;
 
 	const { form, state, isValid, handleChange, handleSubmit } = createForm({
 		initialValues: {
@@ -69,7 +70,7 @@
 		/>
 		<TimelineItem
 			title="Document Submission"
-			route={'/dashboard/docu_submission'}
+			route={'/dashboard/document-submission/' + student_id}
 			icon="account"
 			bind:status={$form.docu_submission}
 		/>

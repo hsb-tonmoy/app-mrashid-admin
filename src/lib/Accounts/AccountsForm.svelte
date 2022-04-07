@@ -143,6 +143,9 @@
 							on:select={(event) => {
 								$data.student = event.detail;
 							}}
+							on:clear={() => {
+								$data.student = null;
+							}}
 						/>
 					</div>
 				</div>

@@ -21,6 +21,6 @@
 	</div>
 	<div class="w-full lg:w-2/5 px-4">
 		<CardProfile {notes} />
-		<CardTimeline {student_progress} />
+		<CardTimeline student_id={data.id} {student_progress} />
 	</div>
 </div>
