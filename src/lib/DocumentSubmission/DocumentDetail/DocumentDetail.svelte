@@ -86,7 +86,7 @@
 						<input
 							id="is_approved"
 							type="checkbox"
-							class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+							class="form-checkbox border border-blueGray-500 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
 							bind:checked={$data.is_approved}
 						/>
 						<span class="ml-2 text-sm font-semibold text-blueGray-600"> Approved? </span>
@@ -98,12 +98,19 @@
 						<input
 							id="is_rejected"
 							type="checkbox"
-							class="form-checkbox border-0 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+							class="form-checkbox border border-blueGray-500 rounded text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
 							bind:checked={$data.is_rejected}
 						/>
 						<span class="ml-2 text-sm font-semibold text-blueGray-600"> Rejected? </span>
 					</label>
 				</div>
+			</div>
+			<div class="w-full px-4 mt-6 text-right">
+				<button
+					class="bg-green-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+				>
+					Update Data
+				</button>
 			</div>
 		</div>
 	</form>

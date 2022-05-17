@@ -19,7 +19,7 @@ export async function get({ params, locals }) {
 export async function patch({ params, locals, request }) {
 	const body = await request.json();
 
-	const student_id = body.student.id;
+	const student_id = body.student ? body.student.id : null;
 	body['student'] = student_id;
 
 	const res = await api.patch(`accounts/${params.username}/`, body, locals.access);

@@ -33,7 +33,7 @@
 				</div>
 				<div class="mb-2 text-blueGray-600">
 					<i class="fas fa-scroll mr-2 text-lg text-blueGray-400" />
-					{account_data.student.english_proficiency.toUpperCase()}
+					{account_data.student && account_data.student.english_proficiency.toUpperCase()}
 				</div>
 			{:else}
 				<div class="flex justify-center items-center">
