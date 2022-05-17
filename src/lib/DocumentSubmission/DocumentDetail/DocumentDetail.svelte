@@ -1,9 +1,9 @@
 <script>
-	import { page, session } from '$app/stores';
+	import { session } from '$app/stores';
+	import { toast } from '@zerodevx/svelte-toast';
 	import { createForm } from 'felte';
 	import { validator } from '@felte/validator-yup';
 	import * as yup from 'yup';
-	import { convertDate } from '$lib/convertDate';
 
 	export let document_data, categories;
 
@@ -19,14 +19,50 @@
 			description: document_data.description,
 			is_approved: document_data.is_approved,
 			is_rejected: document_data.is_rejected,
-			checked_by: document_data.checked_by
+			checked_by: $session.user.id || null
 		},
 		extend: validator({ schema }),
 
 		onSubmit(values, context) {
-			handleAccountsSubmit(JSON.stringify(values));
+			handleSubmit(
+				JSON.stringify({
+					...values,
+					category: values.category.id
+				})
+			);
 		}
 	});
+
+	async function handleSubmit(body) {
+		const response = await fetch(`/dashboard/document-submission/document/${document_data.id}/`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body
+		});
+
+		if (response.ok) {
+			toast.push(`Document successfully updated`, {
+				duration: 3000,
+
+				theme: {
+					'--toastBackground': '#48BB78',
+					'--toastBarBackground': '#2F855A'
+				}
+			});
+		} else {
+			console.log(response);
+			toast.push('Something went wrong! Please re-check the data', {
+				duration: 5000,
+
+				theme: {
+					'--toastBackground': '#F56565',
+					'--toastBarBackground': '#C53030'
+				}
+			});
+		}
+	}
 </script>
 
 <div
@@ -47,6 +83,19 @@
 						disabled
 						type="text"
 						class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-gray-200 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+					/>
+				</div>
+			</div>
+			<div class="w-full px-4">
+				<div class="relative w-full mb-3">
+					<label class="block uppercase text-blueGray-600 text-xs font-bold mb-2" for="grid-id">
+						Title
+					</label>
+					<input
+						id="title"
+						name="title"
+						type="text"
+						class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 					/>
 				</div>
 			</div>

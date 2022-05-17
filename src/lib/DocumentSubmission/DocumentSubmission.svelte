@@ -9,6 +9,7 @@
 	}, Object.create(null));
 </script>
 
+<h3 class="text-black text-3xl text-center mt-40">No documents have been uploaded yet</h3>
 {#each Object.entries(document_data) as [key, value]}
 	<DocumentTable heading={key} data={value} />
 {/each}

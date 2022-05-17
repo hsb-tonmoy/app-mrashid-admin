@@ -1,6 +1,6 @@
 <script>
 	import DocumentSubmission from '$lib/DocumentSubmission/DocumentSubmission.svelte';
-	export let data;
+	export let data = [];
 </script>
 
 <svelte:head>

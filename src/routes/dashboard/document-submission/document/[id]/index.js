@@ -19,3 +19,22 @@ export async function get({ params, locals }) {
 		}
 	};
 }
+
+export async function patch({ params, locals, request }) {
+	const body = await request.json();
+
+	const res = await api.patch(`document/${params.id}/`, body, locals.access);
+
+	if (!res.title) {
+		return {
+			status: 400,
+			ok: false
+		};
+	}
+
+	return {
+		status: 200,
+		ok: true,
+		body: { data: res }
+	};
+}
