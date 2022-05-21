@@ -2,6 +2,7 @@ import * as api from '$lib/api.js';
 
 export async function get({ params, locals }) {
 	const res = await api.get(`document/?student_data=${params.id}`, locals.access);
+	const categories = await api.get(`document_category/`, locals.access);
 
 	if (res.detail) {
 		return {
@@ -13,7 +14,8 @@ export async function get({ params, locals }) {
 	return {
 		ok: true,
 		body: {
-			data: res
+			data: res,
+			categories
 		}
 	};
 }

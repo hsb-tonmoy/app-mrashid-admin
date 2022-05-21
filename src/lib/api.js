@@ -1,14 +1,18 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
-async function send({ method, path, data, token }) {
+async function send({ method, path, data, token, file = false }) {
 	const opts = {
 		method,
 		headers: {}
 	};
 
-	if (data) {
+	if (data && !file) {
 		opts.headers['Content-Type'] = 'application/json';
 		opts.body = JSON.stringify(data);
+	}
+
+	if (data && file) {
+		opts.body = data;
 	}
 
 	if (token) {
@@ -34,14 +38,13 @@ export function del(path, token) {
 	return send({ method: 'DELETE', path, token });
 }
 
-export function post(path, data, token) {
-	return send({ method: 'POST', path, data, token });
+export function post(path, data, token, file) {
+	return send({ method: 'POST', path, data, token, file });
 }
 
 export function put(path, data, token) {
 	return send({ method: 'PUT', path, data, token });
 }
-
 export function patch(path, data, token) {
 	return send({ method: 'PATCH', path, data, token });
 }
