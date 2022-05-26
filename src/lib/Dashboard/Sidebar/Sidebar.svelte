@@ -15,6 +15,14 @@
 
 	const students = [{ title: 'Student Data', link: '/dashboard/student-data', icon: 'fa-table' }];
 
+	const document_submission = [
+		{
+			title: 'Document Categories',
+			link: '/dashboard/document-categories',
+			icon: 'fa-square'
+		}
+	];
+
 	const knowledgebase = [{ title: 'Videos', link: '/videos', icon: 'fa-video' }];
 </script>
 
@@ -120,6 +128,27 @@
 
 			<ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
 				{#each students as item}
+					<li class="items-center">
+						<a href={item.link} class="text-xs uppercase py-3 font-bold block">
+							<i class={`fas ${item.icon} mr-2 text-sm `} />
+							{item.title}
+						</a>
+					</li>
+				{/each}
+			</ul>
+
+			<!-- Divider -->
+			<hr class="my-4 md:min-w-full" />
+			<!-- Heading -->
+			<h6
+				class="md:min-w-full text-blueGray-500 text-xs uppercase font-bold block pt-1 pb-4 no-underline"
+			>
+				Document Submission
+			</h6>
+			<!-- Navigation -->
+
+			<ul class="md:flex-col md:min-w-full flex flex-col list-none md:mb-4">
+				{#each document_submission as item}
 					<li class="items-center">
 						<a href={item.link} class="text-xs uppercase py-3 font-bold block">
 							<i class={`fas ${item.icon} mr-2 text-sm `} />
