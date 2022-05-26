@@ -24,6 +24,7 @@
 	const { form, data, errors } = createForm({
 		initialValues: {
 			title: '',
+			description: '',
 			category: 1,
 			student_data: student_id,
 			checked_by: user_id || null,
@@ -43,8 +44,12 @@
 	async function handleUpload(values) {
 		let formData = new FormData();
 		formData.append('title', values.title);
+		formData.append('description', values.title);
 		formData.append('category', values.category);
 		formData.append('student_data', values.student_data);
+		formData.append('checked_by', values.checked_by);
+		formData.append('is_approved', values.is_approved);
+		formData.append('is_rejected', values.is_rejected);
 		formData.append('document', values.document);
 
 		const res = await fetch('/dashboard/document-submission/upload', {
@@ -151,6 +156,23 @@
 									{/each}
 								</select>
 							</div>
+						</div>
+					</div>
+					<div class="w-full lg:w-12/12 px-4 mt-4">
+						<div class="relative w-full mb-3">
+							<label
+								class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
+								for="description"
+							>
+								Description
+							</label>
+							<textarea
+								id="description"
+								name="description"
+								rows="4"
+								type="text"
+								class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+							/>
 						</div>
 					</div>
 					<div class="w-full lg:w-12/12 px-4 mt-4">

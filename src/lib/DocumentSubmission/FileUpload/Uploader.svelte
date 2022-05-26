@@ -22,7 +22,7 @@
 	multiple={false}
 	accept={['.pdf', '.doc', '.docx', '.jpg', '.png', '.jpeg']}
 	disableDefaultStyles={true}
-	containerClasses="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center"
+	containerClasses="border-dashed border-2 border-gray-400 py-6 flex flex-col justify-center items-center"
 >
 	<p class="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
 		<span>Drag and drop your</span>&nbsp;<span>files here or</span>

@@ -33,6 +33,12 @@
 		}
 	});
 
+	$: {
+		if ($data.is_approved) {
+			$data.is_rejected = false;
+		}
+	}
+
 	async function handleSubmit(body) {
 		const response = await fetch(`/dashboard/document-submission/document/${document_data.id}/`, {
 			method: 'PATCH',
