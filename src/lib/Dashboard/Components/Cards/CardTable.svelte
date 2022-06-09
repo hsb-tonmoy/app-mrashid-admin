@@ -6,6 +6,8 @@
 
 	export let color = 'light';
 
+	export let server_url = '/dashboard/student-data.json/';
+
 	let grid;
 
 	function statusLight(cell) {
@@ -176,7 +178,7 @@
 				}
 			}}
 			server={{
-				url: '/dashboard/student-data.json',
+				url: server_url,
 				then: (data) =>
 					data.results.map((student) => {
 						return [

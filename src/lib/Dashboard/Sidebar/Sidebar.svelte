@@ -13,7 +13,10 @@
 		{ title: 'Accounts', link: '/dashboard/accounts', icon: 'fa-user' }
 	];
 
-	const students = [{ title: 'Student Data', link: '/dashboard/student-data', icon: 'fa-table' }];
+	const students = [
+		{ title: 'Student Data', link: '/dashboard/student-data', icon: 'fa-table' },
+		{ title: 'Converted Students', link: '/dashboard/student-data?status=1/', icon: 'fa-user-tie' }
+	];
 
 	const document_submission = [
 		{
