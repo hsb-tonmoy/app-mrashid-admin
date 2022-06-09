@@ -6,7 +6,7 @@
 
 	export let color = 'light';
 
-	export let server_url = '/dashboard/student-data.json/';
+	export let server_url = '/dashboard/student-data.json';
 
 	let grid;
 

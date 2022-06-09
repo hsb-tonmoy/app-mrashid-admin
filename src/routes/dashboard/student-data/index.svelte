@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import CardTable from '$lib/Dashboard/Components/Cards/CardTable.svelte';
 
-	let server_url = '/dashboard/student-data.json/';
+	let server_url = '/dashboard/student-data.json';
 
 	$: server_url += $page.url.search;
 </script>
