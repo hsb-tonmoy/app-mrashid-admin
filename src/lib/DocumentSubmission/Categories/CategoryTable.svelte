@@ -47,6 +47,13 @@
 					Document Categories
 				</h3>
 			</div>
+			<a
+				href="/dashboard/document-categories/new/"
+				class="bg-green-600 text-white hover:bg-green-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+				type="button"
+			>
+				Add New <i class="fas fa-plus ml-2" />
+			</a>
 		</div>
 	</div>
 	<div class="block w-full overflow-x-auto">
