@@ -1,5 +1,5 @@
 <script>
-	import { page, session } from '$app/stores';
+	import { goto } from '$app/navigation';
 
 	import { toast } from '@zerodevx/svelte-toast';
 
@@ -19,12 +19,12 @@
 	}
 
 	const schema = yup.object({
-		name: yup.string().required(),
-		code: yup.string().required(),
-		slug: yup.string().required()
+		name: yup.string().required('Name is required'),
+		code: yup.string().required('Code is required'),
+		slug: yup.string().required('Slug is required')
 	});
 
-	const { form, data } = createForm({
+	const { form, data, isValid } = createForm({
 		initialValues: {
 			name: '',
 			code: '',
@@ -57,6 +57,8 @@
 					'--toastBarBackground': '#2F855A'
 				}
 			});
+
+			goto('/dashboard/document-categories');
 		} else {
 			toast.push('Something went wrong! Please re-check the data', {
 				duration: 5000,
@@ -113,11 +115,12 @@
 							Slug
 						</label>
 						<input
+							disabled
 							bind:value={$data.slug}
 							id="slug"
 							name="slug"
 							type="text"
-							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+							class="border-0 px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white disabled:bg-gray-300 rounded text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
 						/>
 					</div>
 				</div>
@@ -142,8 +145,9 @@
 					</div>
 					<div class="flex justify-between">
 						<button
+							disabled={!$isValid}
 							type="submit"
-							class="bg-green-500 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
+							class="bg-green-500 disabled:bg-gray-400 text-white active:bg-red-500 font-bold uppercase text-xs px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none mr-1 ease-linear transition-all duration-150"
 						>
 							Submit
 						</button>
