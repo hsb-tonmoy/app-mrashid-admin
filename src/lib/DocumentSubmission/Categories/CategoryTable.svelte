@@ -9,10 +9,17 @@
 	export let data;
 	const columns = [
 		{
+			id: 'id',
+			name: 'ID',
+			hidden: true
+		},
+		{
 			id: 'code',
 			name: 'Code',
-			formatter: (cell) =>
-				html(`<a href="/dashboard/categories/${cell}" class="text-blue-500">${cell}</a>`)
+			formatter: (cell, row) =>
+				html(
+					`<a href="/dashboard/document-categories/${row.cells[0].data}" class="text-blue-500">${cell}</a>`
+				)
 		},
 		{
 			id: 'name',
