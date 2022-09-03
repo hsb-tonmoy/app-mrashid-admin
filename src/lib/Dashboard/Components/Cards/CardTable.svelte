@@ -1,12 +1,17 @@
 <script>
-	import Grid from 'gridjs-svelte';
-	import { html } from 'gridjs';
-
 	import { convertDate } from '$lib/convertDate';
+	import { html } from 'gridjs';
+	import Grid from 'gridjs-svelte';
+	import TimeAgo from 'javascript-time-ago';
+	import en from 'javascript-time-ago/locale/en.json';
 
 	export let color = 'light';
 
 	export let server_url = '/dashboard/student-data.json';
+
+	TimeAgo.addDefaultLocale(en);
+
+	const timeAgo = new TimeAgo('en-US');
 
 	let grid;
 
@@ -42,11 +47,11 @@
 		} else if (cell === 'duolingo') {
 			return 'Duolingo';
 		} else if (cell === 'no-test') {
-			return 'Wish to get enrolled without any test';
+			return 'No test';
 		} else if (cell === 'moi') {
-			return 'Wish to get enrolled with Medium Of Instruction';
+			return 'MOI';
 		} else if (cell === 'plan-to') {
-			return 'Wish to take IELTS';
+			return 'Will take IELTS';
 		}
 	}
 
@@ -71,7 +76,8 @@
 		},
 		{
 			id: 'destination',
-			name: 'Destination'
+			name: 'Destination',
+			hidden: true
 		},
 		{
 			id: 'degree',
@@ -96,8 +102,8 @@
 			name: 'Rating'
 		},
 		{
-			id: 'created',
-			name: 'Created At'
+			id: 'updated',
+			name: 'Updated At'
 		}
 	];
 
@@ -156,8 +162,7 @@
 							'major',
 							'english_proficiency',
 							'status',
-							'rating',
-							'created'
+							'rating'
 						][col.index];
 
 						return `${prev}${prev.includes('?') ? '&' : '?'}ordering=${dir}${colName}`;
@@ -192,7 +197,7 @@
 							student.english_proficiency,
 							student.status,
 							student.rating,
-							convertDate(student.created)
+							student.history ? timeAgo.format(new Date(student.history.history_date)) : ''
 						];
 					}),
 				total: (data) => data.count

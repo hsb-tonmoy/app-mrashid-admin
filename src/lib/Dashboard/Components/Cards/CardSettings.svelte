@@ -1,7 +1,7 @@
 <script>
 	import { page, session } from '$app/stores';
-	import { toast } from '@zerodevx/svelte-toast';
 	import SendStudentEmail from '$lib/StudentData/SendStudentEmail.svelte';
+	import { toast } from '@zerodevx/svelte-toast';
 
 	export let data;
 
@@ -9,14 +9,14 @@
 	import * as yup from 'yup';
 
 	import {
-		DESTINATION,
-		DEGREE,
-		EP_CHOICES,
-		STATUS_CHOICES,
-		PRIORITY_RATINGS,
-		MAJORS,
 		CURRICULUM,
-		LEVEL
+		DEGREE,
+		DESTINATION,
+		EP_CHOICES,
+		LEVEL,
+		MAJORS,
+		PRIORITY_RATINGS,
+		STATUS_CHOICES
 	} from '$lib/StudentData/options';
 
 	const { form, state, isValid, handleChange, handleSubmit } = createForm({
@@ -461,7 +461,7 @@
 							class="block uppercase text-blueGray-600 text-xs font-bold mb-2"
 							for="grid-notes"
 						>
-							Dr. Rashid's Notes
+							Aemers' Notes
 						</label>
 						<textarea
 							id="grid-notes"

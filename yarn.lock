@@ -1240,10 +1240,10 @@
   "resolved" "https://registry.npmjs.org/isexe/-/isexe-2.0.0.tgz"
   "version" "2.0.0"
 
-"javascript-time-ago@^2.3.13":
-  "integrity" "sha512-4y+AOCkUfB/JQNzUdM4c7tu7IDbrdyM0B1slrhtDAhgLQpXeKDhcwKwHlyQ1sNfgLLQUExX+3WXuVgI/KWFkig=="
-  "resolved" "https://registry.npmjs.org/javascript-time-ago/-/javascript-time-ago-2.5.4.tgz"
-  "version" "2.5.4"
+"javascript-time-ago@^2.5.7":
+  "integrity" "sha512-EGvh6K4hpJz0S0aZinbW2EfXDqT/JBB84HfMOFDTzGg7yjpjql9feSgtlG1JQ6b6/NkIxl+PoKSUTEMsatTuTg=="
+  "resolved" "https://registry.npmjs.org/javascript-time-ago/-/javascript-time-ago-2.5.7.tgz"
+  "version" "2.5.7"
   dependencies:
     "relative-time-format" "^1.1.4"
 
